@@ -12,26 +12,26 @@ export default function AppLayout() {
 
     return (
         <div className="grid grid-cols-4">
-            <div className="border-r outline h-screen p-10">
+            <div className="h-screen p-10">
                 <LeftBar />
             </div>
 
-            <div className="col-span-2 p-10">
+            <div className="col-span-2 p-10 border-x outline">
                 <Outlet />
             </div>
 
-            <div className="border-1 outline h-screen p-10">
+            <div className="h-screen p-10">
                 <RightBar />
             </div>
         </div>
     );
 }
 
-function LeftBar() {
+function LeftBar(props: React.HTMLAttributes<HTMLDivElement>) {
     const { pathname } = useLocation();
 
     return (
-        <div>
+        <div {...props}>
             <img src={brandLogo} alt="Logo" className="w-[220px] px-4" />
             <div className="mt-6 bg-background flex flex-col gap-2">
                 {NAV_LINK_MENU.map(({ label, logo, path }, index) => {

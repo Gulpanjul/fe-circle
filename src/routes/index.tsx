@@ -9,6 +9,7 @@ import ForgotPasswordPage from './forgot-password';
 import ResetPasswordPage from './reset-password';
 import AuthLayout from '@/components/layouts/auth-layout';
 import AppLayout from '@/components/layouts/app-layout';
+import ThreadDetailPage from './thread-detail';
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
             {
                 path: '/profile',
                 element: <ProfilePage />,
+            },
+            {
+                path: '/detail/:id',
+                element: <ThreadDetailPage />,
             },
         ],
     },
