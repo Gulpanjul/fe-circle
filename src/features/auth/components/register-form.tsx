@@ -2,7 +2,7 @@ import brandLogo from '@/assets/Logo.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import dummyUsers from '@/utils/datas/user.json';
+import dummyUsers from '@/utils/fake-datas/user.json';
 import {
     registerSchema,
     type RegisterSchemaDTO,
