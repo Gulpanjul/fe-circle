@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { type Reply } from '../types/posts';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { ThumbsUp } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 interface CardReplyProps extends React.HTMLAttributes<HTMLDivElement> {
     replyData: Reply;
@@ -16,7 +16,7 @@ export default function CardReply({ replyData }: CardReplyProps) {
     }
 
     return (
-        <div className="flex gap-4 border-b outline py-4">
+        <div className="flex gap-4 border-b py-4">
             <Avatar className="w-[50px] h-[50px]">
                 <AvatarImage
                     src={replyData.user.avatarUrl}
@@ -45,7 +45,7 @@ export default function CardReply({ replyData }: CardReplyProps) {
 
                 <div className="flex">
                     <Button variant="ghost" className="flex gap-1 p-0 h-auto">
-                        <ThumbsUp className="w-[20px] h-[20px]" />
+                        <Heart className="w-[20px] h-[20px]" />
                         <span>{replyData.likesCount}</span>
                     </Button>
                 </div>

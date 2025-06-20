@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { Post } from '../types/posts';
 import { formatDate } from '@/utils/format-date';
 import { Button } from '@/components/ui/button';
-import { ThumbsUp } from 'lucide-react';
+import { Heart, MessageCircle } from 'lucide-react';
 
 interface CardThreadDetailProps extends React.HTMLAttributes<HTMLDivElement> {
     postData: Post;
@@ -10,7 +10,7 @@ interface CardThreadDetailProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function CardThreadDetail({ postData }: CardThreadDetailProps) {
     return (
-        <div className="flex flex-col gap-4 border-b outline py-4">
+        <div className="flex flex-col gap-4 border-b py-4">
             <div className="flex gap-1">
                 <Avatar className="w-[50px] h-[50px]">
                     <AvatarImage
@@ -40,7 +40,7 @@ export default function CardThreadDetail({ postData }: CardThreadDetailProps) {
                         variant="ghost"
                         className="flex gap-1 p-0 h-auto text-muted-foreground"
                     >
-                        <ThumbsUp className="w-[20px] h-[20px]" />
+                        <Heart className="w-[20px] h-[20px]" />
                         <span>{postData.likesCount}</span>
                     </Button>
 
@@ -48,7 +48,7 @@ export default function CardThreadDetail({ postData }: CardThreadDetailProps) {
                         variant="ghost"
                         className="flex gap-1 p-0 h-auto text-muted-foreground"
                     >
-                        <ThumbsUp className="w-[20px] h-[20px]" />
+                        <MessageCircle className="w-[20px] h-[20px]" />
                         <span>{postData.repliesCount}</span>
                         <span>Replies</span>
                     </Button>

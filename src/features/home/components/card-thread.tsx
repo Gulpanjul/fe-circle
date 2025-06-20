@@ -1,8 +1,9 @@
-import { MessageCircle, ThumbsUp } from 'lucide-react';
+import { Heart, MessageCircle } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { type Post } from '../types/posts';
+import { useReducer } from 'react';
 
 interface CardThreadProps extends React.HTMLAttributes<HTMLDivElement> {
     postData: Post;
@@ -10,13 +11,14 @@ interface CardThreadProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function Cardpost({ postData }: CardThreadProps) {
     const navigate = useNavigate();
+    const [, forceUpdate] = useReducer((state) => state + 1, 0);
 
     function onClickCard() {
         navigate(`/detail/${postData.id}`);
     }
 
     return (
-        <div className="flex gap-4 border-b outline py-4">
+        <div className="flex gap-4 border-b py-4">
             <Avatar className="w-[50px] h-[50px]">
                 <AvatarImage
                     src={postData.user.avatarUrl}
@@ -45,11 +47,22 @@ export default function Cardpost({ postData }: CardThreadProps) {
 
                 <div className="flex gap-2">
                     <Button variant="ghost" className="flex gap-1 p-0 h-auto">
-                        <ThumbsUp className="w-[20px] h-[20px]" />
+                        {postData.isLiked ? (
+                            <Heart className="w-[20px] h-[20px] fill-current text-red-500" />
+                        ) : (
+                            <Heart className="w-[20px] h-[20px]" />
+                        )}
                         <span>{postData.likesCount}</span>
                     </Button>
 
-                    <Button variant="ghost" className="flex gap-1 p-0 h-auto">
+                    <Button
+                        variant="ghost"
+                        className="flex gap-1 p-0 h-auto"
+                        onClick={() => {
+                            postData.isLiked = !postData.isLiked;
+                            forceUpdate();
+                        }}
+                    >
                         <MessageCircle className="w-[20px] h-[20px]" />
                         <span>{postData.repliesCount}</span>
                         <span>Replies</span>

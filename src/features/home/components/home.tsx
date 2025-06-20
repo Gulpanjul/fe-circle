@@ -7,8 +7,8 @@ export default function Home() {
         <div>
             <CreateThread />
             <div className="flex flex-col gap-4 mt-4">
-                {postDatas.map((postData, index) => (
-                    <CardThread key={index} postData={postData} />
+                {postDatas.map((postData) => (
+                    <CardThread postData={postData} key={postData.id} />
                 ))}
             </div>
         </div>

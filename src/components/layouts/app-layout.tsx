@@ -12,7 +12,7 @@ export default function AppLayout() {
 
     return (
         <div className="grid grid-cols-4">
-            <div className="h-screen p-10">
+            <div className="h-screen p-10 hidden lg:block">
                 <LeftBar />
             </div>
 
@@ -20,7 +20,7 @@ export default function AppLayout() {
                 <Outlet />
             </div>
 
-            <div className="h-screen p-10">
+            <div className="h-screen p-10 hidden lg:block">
                 <RightBar />
             </div>
         </div>

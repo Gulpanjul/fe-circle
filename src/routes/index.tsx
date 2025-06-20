@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import HomePage from './home';
 import FollowsPage from './follows';
-import SearchPage from './search';
 import ProfilePage from './profile';
 import RegisterPage from './register';
 import LoginPage from './login';
@@ -10,6 +9,7 @@ import ResetPasswordPage from './reset-password';
 import AuthLayout from '@/components/layouts/auth-layout';
 import AppLayout from '@/components/layouts/app-layout';
 import ThreadDetailPage from './thread-detail';
+import SearchUsersPage from './search-users';
 
 const router = createBrowserRouter([
     {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/search',
-                element: <SearchPage />,
+                element: <SearchUsersPage />,
             },
             {
                 path: '/follows',

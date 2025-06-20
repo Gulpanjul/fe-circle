@@ -39,6 +39,7 @@ export const postDatas: Post[] = [
                 createdAt: new Date(),
             },
         ],
+        isLiked: true,
         createdAt: new Date(),
     },
     {
@@ -52,6 +53,7 @@ export const postDatas: Post[] = [
         content: 'This is a sample post content.',
         likesCount: 8,
         repliesCount: 3,
+        isLiked: false,
         createdAt: new Date(),
     },
     {
@@ -65,6 +67,7 @@ export const postDatas: Post[] = [
         content: 'Another dummy post content.',
         likesCount: 5,
         repliesCount: 1,
+        isLiked: false,
         createdAt: new Date(),
     },
     {
@@ -78,6 +81,7 @@ export const postDatas: Post[] = [
         content: 'Just a quick thought!',
         likesCount: 7,
         repliesCount: 2,
+        isLiked: false,
         createdAt: new Date(),
     },
     {
@@ -91,6 +95,7 @@ export const postDatas: Post[] = [
         content: 'This is a placeholder post.',
         likesCount: 4,
         repliesCount: 1,
+        isLiked: false,
         createdAt: new Date(),
     },
     {
@@ -104,6 +109,7 @@ export const postDatas: Post[] = [
         content: 'Sharing some thoughts.',
         likesCount: 9,
         repliesCount: 4,
+        isLiked: false,
         createdAt: new Date(),
     },
     {
@@ -117,6 +123,8 @@ export const postDatas: Post[] = [
         content: 'Hello everyone!',
         likesCount: 6,
         repliesCount: 0,
+        isLiked: false,
+
         createdAt: new Date(),
     },
     {
@@ -130,6 +138,8 @@ export const postDatas: Post[] = [
         content: 'Happy to share!',
         likesCount: 11,
         repliesCount: 5,
+        isLiked: false,
+
         createdAt: new Date(),
     },
     {
@@ -143,6 +153,8 @@ export const postDatas: Post[] = [
         content: 'Feeling great today.',
         likesCount: 7,
         repliesCount: 3,
+        isLiked: false,
+
         createdAt: new Date(),
     },
     {
@@ -156,6 +168,8 @@ export const postDatas: Post[] = [
         content: 'A quick update from me.',
         likesCount: 8,
         repliesCount: 2,
+        isLiked: false,
+
         createdAt: new Date(),
     },
 ];
