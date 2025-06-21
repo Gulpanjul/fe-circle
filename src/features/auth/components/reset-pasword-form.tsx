@@ -2,7 +2,7 @@ import brandLogo from '@/assets/Logo.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import dummyUsers from '@/utils/fake-datas/user.json';
+import { userDatas } from '@/utils/fake-datas/user';
 import {
     resetPasswordSchema,
     type ResetPasswordSchemaDTO,
@@ -30,7 +30,7 @@ export default function ResetPasswordForm(
     const email = searchParams.get('email');
 
     async function onSubmit(data: ResetPasswordSchemaDTO) {
-        const user = dummyUsers.find((dummyUser) => dummyUser.email === email);
+        const user = userDatas.find((userData) => userData.email === email);
 
         if (!user) {
             toast.error('Email is not valid');

@@ -2,11 +2,12 @@ import brandLogo from '@/assets/Logo.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import dummyUsers from '@/utils/fake-datas/user.json';
+import { userDatas } from '@/utils/fake-datas/user';
 import { loginSchema, type LoginSchemaDTO } from '@/utils/schemas/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuthStore } from '@/stores/auth';
 
 export default function LoginForm() {
     const {
@@ -19,11 +20,13 @@ export default function LoginForm() {
         resolver: zodResolver(loginSchema),
     });
 
+    const setUser = useAuthStore((state) => state.setUser);
+
     const navigate = useNavigate();
 
     async function onSubmit(data: LoginSchemaDTO) {
-        const user = dummyUsers.find(
-            (dummyUser) => dummyUser.email === watch('email'),
+        const user = userDatas.find(
+            (userData) => userData.email === watch('email'),
         );
 
         if (!user) {
@@ -31,16 +34,18 @@ export default function LoginForm() {
             return;
         }
 
-        const isPasswordCorrect = user?.password === watch('password');
+        const isPasswordCorrect = user?.password === data.password;
 
         if (!isPasswordCorrect) {
             toast.error('Password is wrong');
             return;
         }
+        console.log(data);
+
+        setUser(user);
 
         toast.success('Login success');
 
-        console.log(data);
         navigate({ pathname: '/' });
     }
     return (

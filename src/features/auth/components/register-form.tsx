@@ -2,7 +2,6 @@ import brandLogo from '@/assets/Logo.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import dummyUsers from '@/utils/fake-datas/user.json';
 import {
     registerSchema,
     type RegisterSchemaDTO,
@@ -16,7 +15,6 @@ export default function RegisterForm() {
         register,
         handleSubmit,
         formState: { errors },
-        watch,
     } = useForm<RegisterSchemaDTO>({
         mode: 'onChange',
         resolver: zodResolver(registerSchema),
@@ -25,26 +23,10 @@ export default function RegisterForm() {
     const navigate = useNavigate();
 
     async function onSubmit(data: RegisterSchemaDTO) {
-        const user = dummyUsers.find(
-            (dummyUser) => dummyUser.email === watch('email'),
-        );
-
-        if (!user) {
-            toast.error('Email is wrong');
-            return;
-        }
-
-        const isPasswordCorrect = user?.password === watch('password');
-
-        if (!isPasswordCorrect) {
-            toast.error('Password is wrong');
-            return;
-        }
-
-        toast.success('Login success');
+        toast.success('register success');
 
         console.log(data);
-        navigate({ pathname: '/' });
+        navigate({ pathname: '/login' });
     }
     return (
         <div className="flex flex-col gap-3">

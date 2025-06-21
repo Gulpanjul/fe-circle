@@ -1,14 +1,15 @@
 import brandLogo from '@/assets/logo.svg';
 import { NAV_LINK_MENU } from '@/utils/constants/nav-link-menu';
-import { isLogin, userSession } from '@/utils/fake-datas/session';
 import { Link, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useAuthStore } from '@/stores/auth';
 
 export default function AppLayout() {
-    if (isLogin) return <Navigate to={'/login'} />;
+    const username = useAuthStore((state) => state.user.username);
+    if (!username) return <Navigate to={'/login'} />;
 
     return (
         <div className="grid grid-cols-4">
@@ -64,7 +65,7 @@ function RightBar() {
         fullName,
         username,
         bio,
-    } = userSession;
+    } = useAuthStore((state) => state.user);
 
     return (
         <Card className="bg-secondary">
