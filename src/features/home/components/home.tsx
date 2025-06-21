@@ -1,14 +1,26 @@
 import CardThread from './card-thread';
 import CreateThread from './create-thread';
-import { postDatas } from '@/utils/fake-datas/posts';
+import { type Thread } from '../types/posts';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function Home() {
+    const [threads, setThreads] = useState<Thread[]>([]);
+
+    async function getThreads() {
+        const response = await axios.get('https://localhost:3000/threads');
+        setThreads(response.data as Thread[]);
+    }
+
+    useEffect(() => {
+        getThreads();
+    }, []);
     return (
         <div>
             <CreateThread />
             <div className="flex flex-col gap-4 mt-4">
-                {postDatas.map((postData) => (
-                    <CardThread postData={postData} key={postData.id} />
+                {threads?.map((thread) => (
+                    <CardThread threadData={thread} key={thread.id} />
                 ))}
             </div>
         </div>

@@ -49,7 +49,7 @@ export default function ResetPasswordForm(
     return (
         <div className="flex flex-col gap-3" {...props}>
             <img src={brandLogo} alt="Circle logo" className="w-[108px]" />
-            <h2 className="text-2xl font-semibold">Forgot password</h2>
+            <h2 className="text-2xl font-semibold">Reset password</h2>
 
             <form
                 onSubmit={handleSubmit(onSubmit)}

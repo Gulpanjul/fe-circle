@@ -25,7 +25,7 @@ export const userDatas: User[] = [
     },
     {
         fullName: 'Rendy Zulfan',
-        email: 'jyG2o@example.com',
+        email: 'rendy@example.com',
         username: 'rendy_zulfan',
         password: 'password',
         followersCount: 0,
