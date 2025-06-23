@@ -5,6 +5,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { LogOutIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Cookies from 'js-cookie';
+import type React from 'react';
 
 export function LeftBar(props: React.HTMLAttributes<HTMLDivElement>) {
     const { pathname } = useLocation();
@@ -13,7 +15,7 @@ export function LeftBar(props: React.HTMLAttributes<HTMLDivElement>) {
 
     function onLogout() {
         logout();
-        localStorage.removeItem('token');
+        Cookies.remove('token');
         navigate('login');
     }
 

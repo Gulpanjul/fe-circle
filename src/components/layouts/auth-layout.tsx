@@ -4,6 +4,7 @@ import { isAxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { toast } from 'sonner';
+import Cookies from 'js-cookie';
 
 export default function AuthLayout() {
     const { setUser } = useAuthStore();
@@ -11,7 +12,7 @@ export default function AuthLayout() {
 
     async function checkAuth() {
         try {
-            const token = localStorage.getItem('token');
+            const token = Cookies.get('token');
             const response = await api.post(
                 '/auth/check',
                 {},
@@ -26,20 +27,19 @@ export default function AuthLayout() {
             console.log(response);
             setIsLoading(false);
         } catch (error) {
-            localStorage.removeItem('token');
+            Cookies.remove('token');
             if (isAxiosError(error)) {
-                toast.error(
+                return toast.error(
                     error.response?.data.message || 'Authentication failed',
                 );
-            } else {
-                toast.error('Something went wrong!');
             }
+            toast.error('Something went wrong!');
             setIsLoading(false);
         }
     }
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = Cookies.get('token');
         if (token) checkAuth();
     }, []);
 

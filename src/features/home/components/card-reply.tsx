@@ -39,9 +39,12 @@ export default function CardReply({ replyData }: CardReplyProps) {
                     </span>
                 </div>
 
-                <p className="cursor-pointer" onClick={onClickCard}>
+                <button
+                    className="cursor-pointer bg-transparent border-none p-0 text-left"
+                    onClick={onClickCard}
+                >
                     {replyData.content}
-                </p>
+                </button>
 
                 <div className="flex">
                     <Button variant="ghost" className="flex gap-1 p-0 h-auto">

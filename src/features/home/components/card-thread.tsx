@@ -43,12 +43,16 @@ export default function Cardpost({ threadData }: CardThreadProps) {
                     </span>
                 </div>
 
-                <p className="cursor-pointer" onClick={onClickCard}>
+                <button
+                    className="cursor-pointer bg-transparent border-none p-0 text-left"
+                    onClick={onClickCard}
+                >
                     {threadData.content}
-                </p>
+                </button>
                 <img
                     className="object-contain max-h-75 max-w-75"
                     src={threadData.images}
+                    alt="thread images"
                 />
 
                 <div className="flex gap-2">

@@ -2,13 +2,15 @@ import brandLogo from '@/assets/Logo.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { userDatas } from '@/utils/fake-datas/user';
 import {
     forgotPasswordSchema,
     type ForgotPasswordSchemaDTO,
 } from '@/utils/schemas/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { api } from '@/lib/api';
+import { isAxiosError } from 'axios';
 
 export default function ForgotPasswordForm(
     props: React.HTMLAttributes<HTMLDivElement>,
@@ -17,26 +19,26 @@ export default function ForgotPasswordForm(
         register,
         handleSubmit,
         formState: { errors },
-        watch,
     } = useForm<ForgotPasswordSchemaDTO>({
         mode: 'onChange',
         resolver: zodResolver(forgotPasswordSchema),
     });
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    async function onSubmit(data: ForgotPasswordSchemaDTO) {
-        const user = userDatas.find(
-            (userData) => userData.email === watch('email'),
-        );
+    async function onSubmit({ email }: ForgotPasswordSchemaDTO) {
+        try {
+            setIsLoading(true);
+            const response = await api.post('/auth/forgot-password', { email });
 
-        if (!user) {
-            toast.error('Email/password is wrong');
-            return;
+            toast.success(response.data.message);
+            setIsLoading(false);
+        } catch (error) {
+            setIsLoading(false);
+            if (isAxiosError(error)) {
+                return toast.error(error.response?.data.message);
+            }
+            toast.error('Something went wrong!');
         }
-        toast.success(
-            'Reset password link has been sent to your email! Check it out',
-        );
-
-        console.log(data);
     }
 
     return (
@@ -59,8 +61,9 @@ export default function ForgotPasswordForm(
                 <Button
                     type="submit"
                     className="bg-primary text-primary-foreground"
+                    disabled={isLoading ? true : false}
                 >
-                    Send
+                    {isLoading ? 'Loading...' : 'Send'}
                 </Button>
             </form>
         </div>

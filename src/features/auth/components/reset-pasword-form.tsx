@@ -2,7 +2,6 @@ import brandLogo from '@/assets/Logo.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { userDatas } from '@/utils/fake-datas/user';
 import {
     resetPasswordSchema,
     type ResetPasswordSchemaDTO,
@@ -10,6 +9,9 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
+import { api } from '@/lib/api';
+import { isAxiosError } from 'axios';
 
 export default function ResetPasswordForm(
     props: React.HTMLAttributes<HTMLDivElement>,
@@ -18,7 +20,6 @@ export default function ResetPasswordForm(
         register,
         handleSubmit,
         formState: { errors },
-        watch,
     } = useForm<ResetPasswordSchemaDTO>({
         mode: 'all',
         resolver: zodResolver(resetPasswordSchema),
@@ -26,24 +27,30 @@ export default function ResetPasswordForm(
 
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const token = searchParams.get('token');
 
-    const email = searchParams.get('email');
-
-    async function onSubmit(data: ResetPasswordSchemaDTO) {
-        const user = userDatas.find((userData) => userData.email === email);
-
-        if (!user) {
-            toast.error('Email is not valid');
-            return;
+    async function onSubmit({
+        oldPassword,
+        newPassword,
+    }: ResetPasswordSchemaDTO) {
+        try {
+            setIsLoading(true);
+            const response = await api.post(
+                '/auth/reset-password',
+                { oldPassword, newPassword },
+                { headers: { Authorization: `Bearer ${token}` } },
+            );
+            toast.success(response.data.message);
+            navigate({ pathname: '/login' });
+            setIsLoading(false);
+        } catch (error) {
+            setIsLoading(false);
+            if (isAxiosError(error)) {
+                return toast.error(error.response?.data.message);
+            }
         }
-        if (user.password === watch('password')) {
-            toast.error('Password cannot be the same as previous');
-            return;
-        }
-        toast.success('Reset password success!');
-
-        console.log(data);
-        navigate({ pathname: '/login' });
+        toast.error('Something went wrong!');
     }
 
     return (
@@ -56,29 +63,33 @@ export default function ResetPasswordForm(
                 className="flex flex-col gap-3"
             >
                 <div className="space-y-1">
-                    <Input placeholder="Password" {...register('password')} />
-                    {errors.password && (
+                    <Input
+                        placeholder="Password"
+                        {...register('oldPassword')}
+                    />
+                    {errors.oldPassword && (
                         <p className="text-sm text-destructive">
-                            {errors.password.message}
+                            {errors.oldPassword.message}
                         </p>
                     )}
                 </div>
                 <div className="space-y-1">
                     <Input
                         placeholder="Confirm password"
-                        {...register('confirmPassword')}
+                        {...register('newPassword')}
                     />
-                    {errors.confirmPassword && (
+                    {errors.newPassword && (
                         <p className="text-sm text-destructive">
-                            {errors.confirmPassword.message}
+                            {errors.newPassword.message}
                         </p>
                     )}
                 </div>
                 <Button
                     type="submit"
                     className="bg-primary text-primary-foreground"
+                    disabled={isLoading ? true : false}
                 >
-                    Send
+                    {isLoading ? 'Loading...' : 'Send'}
                 </Button>
             </form>
         </div>

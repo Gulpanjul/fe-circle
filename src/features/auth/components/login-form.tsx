@@ -9,6 +9,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/stores/auth';
 import { api } from '@/lib/api';
 import { isAxiosError } from 'axios';
+import Cookies from 'js-cookie';
 
 export default function LoginForm() {
     const {
@@ -27,18 +28,17 @@ export default function LoginForm() {
         try {
             const response = await api.post('/auth/login', data);
             setUser(response.data.data.user);
-            localStorage.setItem('token', response.data.token);
+            Cookies.set('token', response.data.token);
 
             toast.success(response.data.message);
 
             navigate({ pathname: '/' });
         } catch (error) {
             if (isAxiosError(error)) {
-                toast.error(error.response?.data?.message);
-                return;
+                return toast.error(error.response?.data?.message);
             }
+            toast.error('Something went wrong!');
         }
-        toast.error('Something went wrong!');
     }
     return (
         <div className="flex flex-col gap-3">
