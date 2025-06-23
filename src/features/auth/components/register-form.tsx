@@ -9,6 +9,8 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { isAxiosError } from 'axios';
+import { api } from '@/lib/api';
 
 export default function RegisterForm() {
     const {
@@ -23,10 +25,16 @@ export default function RegisterForm() {
     const navigate = useNavigate();
 
     async function onSubmit(data: RegisterSchemaDTO) {
-        toast.success('register success');
+        try {
+            const response = await api.post('/auth/register', data);
+            toast.success(response.data.message);
 
-        console.log(data);
-        navigate({ pathname: '/login' });
+            navigate({ pathname: '/login' });
+        } catch (error) {
+            if (isAxiosError(error)) {
+                toast.error(error.response?.data.message);
+            }
+        }
     }
     return (
         <div className="flex flex-col gap-3">
@@ -43,6 +51,14 @@ export default function RegisterForm() {
                     {errors.fullName && (
                         <p className="text-sm text-destructive">
                             {errors.fullName.message}
+                        </p>
+                    )}
+                </div>
+                <div className="space-y-1">
+                    <Input placeholder="Username" {...register('username')} />
+                    {errors.username && (
+                        <p className="text-sm text-destructive">
+                            {errors.username.message}
                         </p>
                     )}
                 </div>

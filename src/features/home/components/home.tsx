@@ -8,7 +8,7 @@ export default function Home() {
     const [threads, setThreads] = useState<Thread[]>([]);
 
     async function getThreads() {
-        const response = await axios.get('https://localhost:3000/threads');
+        const response = await axios.get('https://localhost:3001/threads');
         setThreads(response.data as Thread[]);
     }
 

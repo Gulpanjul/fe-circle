@@ -1,8 +1,9 @@
-import { type Post } from '@/features/home/types/posts';
+import { type Thread } from '@/features/home/types/posts';
 
-export const postDatas: Post[] = [
+export const postDatas: Thread[] = [
     {
         id: '8d5e7a20-1b63-11ee-be56-0242ac120002',
+        images: '',
         user: {
             fullName: '08 Endranio Palupi',
             username: 'endranio_palupi',
@@ -44,6 +45,7 @@ export const postDatas: Post[] = [
     },
     {
         id: '8d5e7b90-1b63-11ee-be56-0242ac120002',
+        images: '',
         user: {
             fullName: 'Iqbal M Hasbi',
             username: 'iqbal_hasbi',
@@ -58,6 +60,7 @@ export const postDatas: Post[] = [
     },
     {
         id: '8d5e7cf0-1b63-11ee-be56-0242ac120002',
+        images: '',
         user: {
             fullName: 'M Rizal',
             username: 'm_rizal',
@@ -72,6 +75,7 @@ export const postDatas: Post[] = [
     },
     {
         id: '8d5e7e50-1b63-11ee-be56-0242ac120002',
+        images: '',
         user: {
             fullName: 'Muh. Yaumil Aksah Hamid',
             username: 'yaumil_aksah',
@@ -86,6 +90,7 @@ export const postDatas: Post[] = [
     },
     {
         id: '8d5e7fba-1b63-11ee-be56-0242ac120002',
+        images: '',
         user: {
             fullName: 'Muhammad Alfiandi Rizki',
             username: 'alfiandi_rizki',
@@ -100,6 +105,7 @@ export const postDatas: Post[] = [
     },
     {
         id: '8d5e8126-1b63-11ee-be56-0242ac120002',
+        images: '',
         user: {
             fullName: 'Paste Prosman',
             username: 'paste_prosman',
@@ -114,6 +120,7 @@ export const postDatas: Post[] = [
     },
     {
         id: '8d5e828c-1b63-11ee-be56-0242ac120002',
+        images: '',
         user: {
             fullName: 'Rahim Haq',
             username: 'rahim_haq',
@@ -129,6 +136,7 @@ export const postDatas: Post[] = [
     },
     {
         id: '8d5e83fc-1b63-11ee-be56-0242ac120002',
+        images: '',
         user: {
             fullName: 'Rendy Zulfan',
             username: 'rendy_zulfan',
@@ -144,6 +152,7 @@ export const postDatas: Post[] = [
     },
     {
         id: '8d5e8574-1b63-11ee-be56-0242ac120002',
+        images: '',
         user: {
             fullName: 'Syifa Maulaya',
             username: 'syifa_maulaya',
@@ -159,6 +168,7 @@ export const postDatas: Post[] = [
     },
     {
         id: '8d5e86e2-1b63-11ee-be56-0242ac120002',
+        images: '',
         user: {
             fullName: 'Tajjuddin Auliya Ahaadiin',
             username: 'tajjuddin_auliya',

@@ -1,11 +1,18 @@
 import brandLogo from '@/assets/logo.svg';
 import { NAV_LINK_MENU } from '@/utils/constants/nav-link-menu';
-import { Link, Navigate, Outlet, useLocation } from 'react-router-dom';
+import {
+    Link,
+    Navigate,
+    Outlet,
+    useLocation,
+    useNavigate,
+} from 'react-router-dom';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/stores/auth';
+import { LogOutIcon } from 'lucide-react';
 
 export default function AppLayout() {
     const username = useAuthStore((state) => state.user.username);
@@ -30,6 +37,14 @@ export default function AppLayout() {
 
 function LeftBar(props: React.HTMLAttributes<HTMLDivElement>) {
     const { pathname } = useLocation();
+    const { logout } = useAuthStore();
+    const navigate = useNavigate();
+
+    function onLogout() {
+        logout();
+        localStorage.removeItem('token');
+        navigate('login');
+    }
 
     return (
         <div {...props}>
@@ -51,6 +66,10 @@ function LeftBar(props: React.HTMLAttributes<HTMLDivElement>) {
                         </Link>
                     );
                 })}
+                <Button variant={'ghost'} onClick={onLogout}>
+                    <LogOutIcon width={'27px'} />
+                    Logout
+                </Button>
             </div>
         </div>
     );
@@ -58,13 +77,8 @@ function LeftBar(props: React.HTMLAttributes<HTMLDivElement>) {
 
 function RightBar() {
     const {
-        avatarUrl,
-        backgroundUrl,
-        followersCount,
-        followingsCount,
-        fullName,
         username,
-        bio,
+        profile: { fullName, bio, bannerUrl, avatarUrl },
     } = useAuthStore((state) => state.user);
 
     return (
@@ -76,10 +90,16 @@ function RightBar() {
                 <div className="flex flex-col gap-3">
                     <div
                         className="rounded-lg p-4 bg-cover bg-center"
-                        style={{ backgroundImage: `url(${backgroundUrl})` }}
+                        style={{ backgroundImage: `url(${bannerUrl})` }}
                     >
                         <Avatar className="w-20 h-20 mx-auto">
-                            <AvatarImage src={avatarUrl} alt={fullName} />
+                            <AvatarImage
+                                src={
+                                    avatarUrl ||
+                                    `https://api.dicebear.com/9.x/notionists/svg?seed=${fullName}`
+                                }
+                                alt={fullName}
+                            />
                             <AvatarFallback>
                                 {fullName.charAt(0)}
                             </AvatarFallback>
@@ -94,15 +114,11 @@ function RightBar() {
                         <p>{bio}</p>
                         <div className="flex gap-4 mt-2">
                             <div className="flex gap-1">
-                                <span className="font-bold">
-                                    {followingsCount}
-                                </span>
+                                <span className="font-bold">{200}</span>
                                 <span>Following</span>
                             </div>
                             <div className="flex gap-1">
-                                <span className="font-bold">
-                                    {followersCount}
-                                </span>
+                                <span className="font-bold">{100}</span>
                                 <span>Followers</span>
                             </div>
                         </div>

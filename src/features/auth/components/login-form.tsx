@@ -2,51 +2,43 @@ import brandLogo from '@/assets/Logo.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { userDatas } from '@/utils/fake-datas/user';
 import { loginSchema, type LoginSchemaDTO } from '@/utils/schemas/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/stores/auth';
+import { api } from '@/lib/api';
+import { isAxiosError } from 'axios';
 
 export default function LoginForm() {
     const {
         register,
         handleSubmit,
         formState: { errors },
-        watch,
     } = useForm<LoginSchemaDTO>({
         mode: 'onChange',
         resolver: zodResolver(loginSchema),
     });
 
-    const setUser = useAuthStore((state) => state.setUser);
-
+    const { setUser } = useAuthStore();
     const navigate = useNavigate();
 
     async function onSubmit(data: LoginSchemaDTO) {
-        const user = userDatas.find(
-            (userData) => userData.email === watch('email'),
-        );
+        try {
+            const response = await api.post('/auth/login', data);
+            setUser(response.data.data.user);
+            localStorage.setItem('token', response.data.token);
 
-        if (!user) {
-            toast.error('Email is wrong');
-            return;
+            toast.success(response.data.message);
+
+            navigate({ pathname: '/' });
+        } catch (error) {
+            if (isAxiosError(error)) {
+                toast.error(error.response?.data?.message);
+                return;
+            }
         }
-
-        const isPasswordCorrect = user?.password === data.password;
-
-        if (!isPasswordCorrect) {
-            toast.error('Password is wrong');
-            return;
-        }
-        console.log(data);
-
-        setUser(user);
-
-        toast.success('Login success');
-
-        navigate({ pathname: '/' });
+        toast.error('Something went wrong!');
     }
     return (
         <div className="flex flex-col gap-3">
