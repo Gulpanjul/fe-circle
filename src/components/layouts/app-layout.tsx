@@ -39,21 +39,19 @@ export default function AppLayout() {
     });
 
     if (isFetched) {
-        if (!username) {
-            if (!username) return <Navigate to="/login" />;
-        }
+        if (!username) return <Navigate to="/login" />;
 
         return (
-            <div className="grid grid-cols-4">
-                <div className="h-screen p-10 hidden lg:block">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr]">
+                <div className="hidden lg:block h-screen p-10">
                     <LeftBar />
                 </div>
 
-                <div className="col-span-2 p-10 border-x outline">
+                <div className="p-10 border-x outline">
                     <Outlet />
                 </div>
 
-                <div className="h-screen p-10 hidden lg:block">
+                <div className="hidden lg:flex flex-col gap-4 border-l border-outline p-10">
                     <RightBar />
                 </div>
             </div>
