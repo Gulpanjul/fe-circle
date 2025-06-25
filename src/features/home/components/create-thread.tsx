@@ -6,11 +6,7 @@ import {
     Dialog,
     DialogTrigger,
     DialogContent,
-    DialogHeader,
-    DialogTitle,
     DialogFooter,
-    DialogDescription,
-    DialogClose,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -24,113 +20,171 @@ import { toast } from 'sonner';
 import { api } from '@/lib/api';
 import { isAxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { cn } from '@/lib/utils';
 
+interface ThreadResponse {
+    message: string;
+    data: {
+        id: string;
+        content: string;
+        imageUrl: string | null;
+        createdAt: string;
+        updatedAt: string;
+    };
+}
 export default function CreateThread() {
     const { fullName, avatarUrl } = userSession;
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const inputFileRef = useRef<HTMLInputElement | null>(null);
     const {
         register,
         handleSubmit,
         formState: { errors },
+        reset,
     } = useForm<createThreadSchemaDTO>({
         mode: 'onChange',
         resolver: zodResolver(createThreadSchema),
     });
 
+    const {
+        ref: registerImagesRef,
+        onChange: registerImagesOnChange,
+        ...restRegisterImages
+    } = register('images');
+
+    const queryClient = useQueryClient();
+
     function onClickFile() {
         inputFileRef?.current?.click();
     }
 
-    async function onSubmit(data: createThreadSchemaDTO) {
-        try {
-            setIsLoading(true);
+    const { isPending, mutateAsync } = useMutation<
+        ThreadResponse,
+        Error,
+        createThreadSchemaDTO
+    >({
+        mutationKey: ['create-threads'],
+        mutationFn: async (data: createThreadSchemaDTO) => {
             const formData = new FormData();
             formData.append('content', data.content);
             formData.append('images', data.images[0]);
 
             const response = await api.post('/threads', formData);
-
-            toast.success(response.data.message);
-            setIsLoading(false);
-        } catch (error) {
-            setIsLoading(false);
+            return response.data;
+        },
+        onError: (error) => {
             if (isAxiosError(error)) {
                 return toast.error(error.response?.data.message);
             }
+            toast.error('Something went wrong!');
+        },
+        onSuccess: async (data) => {
+            queryClient.invalidateQueries({
+                queryKey: ['threads'],
+            });
+            toast.success(data.message);
+        },
+    });
+
+    async function onSubmit(data: createThreadSchemaDTO) {
+        await mutateAsync(data);
+        reset();
+        setPreviewUrl('');
+    }
+
+    function handlePreview(e: React.ChangeEvent<HTMLInputElement>) {
+        if (e.target.files) {
+            const file = e.target.files[0];
+            const url = URL.createObjectURL(file);
+            setPreviewUrl(url);
         }
-        toast.error('Something went wrong!');
     }
 
     return (
         <Dialog>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="flex items-center gap-5 border-b py-5">
+            <DialogTrigger asChild>
+                <div className="flex gap-4 border-b py-4">
                     <Avatar className="w-[50px] h-[50px]">
                         <AvatarImage src={avatarUrl} alt={fullName} />
                         <AvatarFallback>{fullName.charAt(0)}</AvatarFallback>
                     </Avatar>
-
-                    <DialogTrigger asChild>
-                        <div className="w-full">
-                            <Textarea
-                                placeholder="What is happening?!"
-                                className="resize-none"
-                                {...register('content')}
-                            />
-                            {errors.content && (
-                                <p className="text-sm text-destructive">
-                                    {errors.content.message}
-                                </p>
-                            )}
+                    <div className="flex items-center justify-between w-full">
+                        <p className="text-muted-foreground text-xl">
+                            What is happening?!
+                        </p>
+                        <div className="flex items-center gap-5">
+                            <ImagePlus className="w-[27px] h-[27px]" />
+                            <Button className="rounded-full">Post</Button>
                         </div>
-                    </DialogTrigger>
-
-                    <Button
-                        variant="ghost"
-                        onClick={onClickFile}
-                        className="p-2"
-                    >
-                        <ImagePlus className="w-[27px] h-[27px]" />
-                    </Button>
-
-                    <Input
-                        type="file"
-                        className="hidden"
-                        {...register('images')}
-                        ref={(e) => {
-                            register('images');
-                            inputFileRef.current = e;
-                        }}
-                    />
-
-                    <Button
-                        className="bg-brand text-white"
-                        disabled={isLoading ? true : false}
-                    >
-                        {isLoading ? 'Loading...' : 'Post'}
-                    </Button>
+                    </div>
                 </div>
+            </DialogTrigger>
 
-                <DialogContent>
-                    <DialogClose className="absolute right-4 top-4" />
-                    <DialogHeader>
-                        <DialogTitle>Create Post</DialogTitle>
-                        <DialogDescription>
-                            Start a new thread.
-                        </DialogDescription>
-                    </DialogHeader>
-                    <Textarea
-                        placeholder="Write your thoughts..."
-                        className="resize-none"
-                    />
+            <DialogContent>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                    <div className="flex items-center gap-4 border-b">
+                        <Avatar className="w-[50px] h-[50px]">
+                            <AvatarImage src={avatarUrl} alt={fullName} />
+                            <AvatarFallback>
+                                {fullName.charAt(0)}
+                            </AvatarFallback>
+                        </Avatar>
+
+                        <Textarea
+                            placeholder="What is happening?!"
+                            {...register('content')}
+                            className={cn(
+                                '!bg-transparent !resize-none border-none focus-visible:ring-0 field-sizing-fixed',
+                                errors.content && 'border-red-500',
+                            )}
+                        ></Textarea>
+                        {errors.content && (
+                            <p className="text-sm text-destructive mt-1">
+                                {errors.content.message}
+                            </p>
+                        )}
+                    </div>
+
+                    {previewUrl && (
+                        <img
+                            src={previewUrl}
+                            alt="Preview"
+                            className="max-h-[300px] object-contain mx-auto"
+                        />
+                    )}
+
                     <DialogFooter>
-                        <Button disabled={isLoading ? true : false}>
-                            {isLoading ? 'Loading...' : 'Post'}
-                        </Button>
+                        <div className="w-full flex items-center justify-between">
+                            <Button
+                                variant="ghost"
+                                type="button"
+                                className="p-2"
+                                onClick={onClickFile}
+                            >
+                                <ImagePlus className="w-6 h-6" />
+                            </Button>
+
+                            <Input
+                                type="file"
+                                className="hidden"
+                                {...restRegisterImages}
+                                onChange={(e) => {
+                                    handlePreview(e);
+                                    registerImagesOnChange(e);
+                                }}
+                                ref={(e) => {
+                                    registerImagesRef(e);
+                                    inputFileRef.current = e;
+                                }}
+                            />
+                            <Button type="submit" disabled={isPending}>
+                                {isPending ? 'Loading...' : 'Post'}
+                            </Button>
+                        </div>
                     </DialogFooter>
-                </DialogContent>
-            </form>
+                </form>
+            </DialogContent>
         </Dialog>
     );
 }

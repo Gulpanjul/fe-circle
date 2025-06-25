@@ -1,57 +1,14 @@
 import brandLogo from '@/assets/Logo.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { toast } from 'sonner';
-import {
-    resetPasswordSchema,
-    type ResetPasswordSchemaDTO,
-} from '@/utils/schemas/auth.schema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useState } from 'react';
-import { api } from '@/lib/api';
-import { isAxiosError } from 'axios';
+import { usePasswordForm } from '../hooks/use-password-form';
+import { Loader2 } from 'lucide-react';
 
 export default function ResetPasswordForm(
     props: React.HTMLAttributes<HTMLDivElement>,
 ) {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<ResetPasswordSchemaDTO>({
-        mode: 'all',
-        resolver: zodResolver(resetPasswordSchema),
-    });
-
-    const [searchParams] = useSearchParams();
-    const navigate = useNavigate();
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const token = searchParams.get('token');
-
-    async function onSubmit({
-        oldPassword,
-        newPassword,
-    }: ResetPasswordSchemaDTO) {
-        try {
-            setIsLoading(true);
-            const response = await api.post(
-                '/auth/reset-password',
-                { oldPassword, newPassword },
-                { headers: { Authorization: `Bearer ${token}` } },
-            );
-            toast.success(response.data.message);
-            navigate({ pathname: '/login' });
-            setIsLoading(false);
-        } catch (error) {
-            setIsLoading(false);
-            if (isAxiosError(error)) {
-                return toast.error(error.response?.data.message);
-            }
-        }
-        toast.error('Something went wrong!');
-    }
+    const { errors, handleSubmit, register, isPending, onSubmit } =
+        usePasswordForm();
 
     return (
         <div className="flex flex-col gap-3" {...props}>
@@ -87,9 +44,13 @@ export default function ResetPasswordForm(
                 <Button
                     type="submit"
                     className="bg-primary text-primary-foreground"
-                    disabled={isLoading ? true : false}
+                    disabled={isPending ? true : false}
                 >
-                    {isLoading ? 'Loading...' : 'Send'}
+                    {isPending ? (
+                        <Loader2 className="animate-spin h-5 w-5 text-muted-foreground" />
+                    ) : (
+                        'Register'
+                    )}
                 </Button>
             </form>
         </div>

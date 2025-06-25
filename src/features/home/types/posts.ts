@@ -1,7 +1,11 @@
-export type UserPost = {
+export type Profile = {
     fullName: string;
-    username: string;
     avatarUrl: string;
+};
+
+export type UserPost = {
+    profile: Profile;
+    username: string;
 };
 
 export type Reply = {

@@ -1,45 +1,13 @@
 import brandLogo from '@/assets/Logo.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { toast } from 'sonner';
-import { loginSchema, type LoginSchemaDTO } from '@/utils/schemas/auth.schema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuthStore } from '@/stores/auth';
-import { api } from '@/lib/api';
-import { isAxiosError } from 'axios';
-import Cookies from 'js-cookie';
+import { Link } from 'react-router-dom';
+import { useLoginForm } from '../hooks/use-login-form';
+import { Loader2 } from 'lucide-react';
 
 export default function LoginForm() {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<LoginSchemaDTO>({
-        mode: 'onChange',
-        resolver: zodResolver(loginSchema),
-    });
-
-    const { setUser } = useAuthStore();
-    const navigate = useNavigate();
-
-    async function onSubmit(data: LoginSchemaDTO) {
-        try {
-            const response = await api.post('/auth/login', data);
-            setUser(response.data.data.user);
-            Cookies.set('token', response.data.token);
-
-            toast.success(response.data.message);
-
-            navigate({ pathname: '/' });
-        } catch (error) {
-            if (isAxiosError(error)) {
-                return toast.error(error.response?.data?.message);
-            }
-            toast.error('Something went wrong!');
-        }
-    }
+    const { errors, handleSubmit, isPending, onSubmit, register } =
+        useLoginForm();
     return (
         <div className="flex flex-col gap-3">
             <img src={brandLogo} alt="Circle logo" className="w-[108px]" />
@@ -78,8 +46,20 @@ export default function LoginForm() {
                     </Link>
                 </div>
 
-                <Button className="bg-primary text-primary-foreground w-full">
+                {/* <Button className="bg-primary text-primary-foreground w-full">
                     Login
+                </Button> */}
+
+                <Button
+                    type="submit"
+                    className="bg-primary text-primary-foreground"
+                    disabled={isPending ? true : false}
+                >
+                    {isPending ? (
+                        <Loader2 className="animate-spin h-5 w-5 text-muted-foreground" />
+                    ) : (
+                        'Login'
+                    )}
                 </Button>
 
                 <p className="text-sm">

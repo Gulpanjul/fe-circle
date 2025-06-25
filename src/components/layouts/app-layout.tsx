@@ -7,11 +7,7 @@ import Cookies from 'js-cookie';
 import { api } from '@/lib/api';
 
 export default function AppLayout() {
-    const {
-        user: { username },
-        setUser,
-        logout,
-    } = useAuthStore();
+    const { user, setUser, logout } = useAuthStore();
 
     const { isFetched } = useQuery({
         queryKey: ['check-auth'],
@@ -39,7 +35,7 @@ export default function AppLayout() {
     });
 
     if (isFetched) {
-        if (!username) return <Navigate to="/login" />;
+        if (!user?.username) return <Navigate to="/login" />;
 
         return (
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr]">

@@ -1,41 +1,13 @@
 import brandLogo from '@/assets/Logo.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { toast } from 'sonner';
-import {
-    registerSchema,
-    type RegisterSchemaDTO,
-} from '@/utils/schemas/auth.schema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import { isAxiosError } from 'axios';
-import { api } from '@/lib/api';
+import { Link } from 'react-router-dom';
+import { Loader2 } from 'lucide-react';
+import { useRegisterForm } from '../hooks/use-register-form';
 
 export default function RegisterForm() {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<RegisterSchemaDTO>({
-        mode: 'onChange',
-        resolver: zodResolver(registerSchema),
-    });
-
-    const navigate = useNavigate();
-
-    async function onSubmit(data: RegisterSchemaDTO) {
-        try {
-            const response = await api.post('/auth/register', data);
-            toast.success(response.data.message);
-
-            navigate({ pathname: '/login' });
-        } catch (error) {
-            if (isAxiosError(error)) {
-                toast.error(error.response?.data.message);
-            }
-        }
-    }
+    const { errors, handleSubmit, isPending, onSubmit, register } =
+        useRegisterForm();
     return (
         <div className="flex flex-col gap-3">
             <img src={brandLogo} alt="Circle logo" className="w-[108px]" />
@@ -63,10 +35,7 @@ export default function RegisterForm() {
                     )}
                 </div>
                 <div className="space-y-1">
-                    <Input
-                        placeholder="Email/Username"
-                        {...register('email')}
-                    />
+                    <Input placeholder="Email" {...register('email')} />
                     {errors.email && (
                         <p className="text-sm text-destructive">
                             {errors.email.message}
@@ -82,8 +51,16 @@ export default function RegisterForm() {
                     )}
                 </div>
 
-                <Button className="bg-primary text-primary-foreground">
-                    Register
+                <Button
+                    type="submit"
+                    className="bg-primary text-primary-foreground"
+                    disabled={isPending ? true : false}
+                >
+                    {isPending ? (
+                        <Loader2 className="animate-spin h-5 w-5 text-muted-foreground" />
+                    ) : (
+                        'Register'
+                    )}
                 </Button>
 
                 <p className="text-sm">

@@ -47,7 +47,6 @@ export function useLoginForm() {
             const response = await api.post<LoginResponse>('/auth/login', data);
             setUser(response.data.data.user);
             Cookies.set('token', response.data.data.token, { expires: 1 });
-
             return response.data;
         },
         onError: (error) => {
