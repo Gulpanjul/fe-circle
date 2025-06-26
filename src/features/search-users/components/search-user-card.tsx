@@ -39,6 +39,7 @@ export default function SearchUserCard({
                 }}
             >
                 {/* {searchUserData.isFollowed ? 'Unfollow' : 'Follow'} */}
+                Follow
             </Button>
         </div>
     );

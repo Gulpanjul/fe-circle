@@ -1,12 +1,8 @@
 import {
+    CircleUserRound,
+    Heart,
     Home,
-    HomeIcon,
-    Search,
-    SearchIcon,
-    User,
-    UserIcon,
-    Users,
-    UsersIcon,
+    UserRound,
     type LucideIcon,
 } from 'lucide-react';
 
@@ -25,31 +21,31 @@ export const NAV_LINK_MENU: NavLinkMenu[] = [
         path: '/',
         logo: {
             fill: Home,
-            outline: HomeIcon,
+            outline: Home,
         },
     },
     {
         label: 'Search',
         path: '/search',
         logo: {
-            fill: Search,
-            outline: SearchIcon,
+            fill: UserRound,
+            outline: UserRound,
         },
     },
     {
         label: 'Follows',
         path: '/follows',
         logo: {
-            fill: Users,
-            outline: UsersIcon,
+            fill: Heart,
+            outline: Heart,
         },
     },
     {
         label: 'Profile',
         path: '/profile',
         logo: {
-            fill: User,
-            outline: UserIcon,
+            fill: CircleUserRound,
+            outline: CircleUserRound,
         },
     },
 ];

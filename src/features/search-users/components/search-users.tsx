@@ -1,4 +1,4 @@
-import { Loader2, Search } from 'lucide-react';
+import { Loader2, UserSearch } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useDebounce } from 'use-debounce';
 import SearchUserCard from './search-user-card';
@@ -15,19 +15,17 @@ export default function SearchUsers() {
         setSearchText(e.target.value);
     }
 
-    const {
-        data: users,
-        isLoading,
-        refetch,
-    } = useQuery<SearchUser[]>({
+    const { data, isLoading, refetch } = useQuery({
         queryKey: ['search-users'],
         queryFn: async () => {
             const response = await api.get(
-                `/users?search=${searchTextDebounced}`,
+                `/users/search?q=${searchTextDebounced}`,
             );
             return response.data;
         },
     });
+
+    const users = data?.data ?? [];
 
     useEffect(() => {
         refetch();
@@ -36,7 +34,7 @@ export default function SearchUsers() {
     return (
         <div className="space-y-4">
             <div className="relative w-full">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4"></Search>
+                <UserSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4"></UserSearch>
                 <Input
                     placeholder="Username"
                     className="pl-10 rounded-xl focus-visible:ring-brand"
@@ -46,9 +44,19 @@ export default function SearchUsers() {
 
             {isLoading ? (
                 <Loader2 className="animate-spin h-5 w-5 text-muted-foreground" />
+            ) : searchTextDebounced.trim() === '' ? (
+                <div className="flex flex-col justify-center items-center h-64 text-center">
+                    <p className="text-base font-medium">
+                        Write and search something
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                        Try searching for something else or check the spelling
+                        of what you typed.
+                    </p>
+                </div>
             ) : (
                 <>
-                    {users?.map((user) => (
+                    {users?.map((user: SearchUser) => (
                         <SearchUserCard key={user.id} searchUserData={user} />
                     ))}
                 </>

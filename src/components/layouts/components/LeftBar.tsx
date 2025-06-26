@@ -24,17 +24,25 @@ export function LeftBar(props: React.HTMLAttributes<HTMLDivElement>) {
             <img src={brandLogo} alt="Logo" className="w-[220px] px-4" />
             <div className="mt-6 bg-background flex flex-col gap-2">
                 {NAV_LINK_MENU.map(({ label, logo, path }, index) => {
-                    const Icon = pathname === path ? logo.fill : logo.outline;
+                    const isActive = pathname === path;
+                    const Icon = isActive ? logo.fill : logo.outline;
+
                     return (
                         <Link
                             key={index}
                             to={path}
                             className={cn(
                                 'flex items-center gap-4 px-5 py-4 hover:bg-muted rounded-md',
-                                pathname === path && 'bg-muted font-semibold',
+                                isActive && 'bg-muted font-semibold',
                             )}
                         >
-                            <Icon className="w-[27px] h-[27px]" />
+                            <Icon
+                                className={cn(
+                                    'w-[27px] h-[27px] box-content',
+                                    isActive &&
+                                        'bg-white text-secondary rounded-sm outline-2',
+                                )}
+                            />
                             <span>{label}</span>
                         </Link>
                     );
