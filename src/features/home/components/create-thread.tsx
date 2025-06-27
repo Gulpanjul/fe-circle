@@ -125,7 +125,7 @@ export default function CreateThread() {
                         <Avatar className="w-[50px] h-[50px]">
                             <AvatarImage src={avatarUrl || ''} alt={fullName} />
                             <AvatarFallback>
-                                {fullName.charAt(0)}
+                                {fullName?.slice(0, 2).toUpperCase()}
                             </AvatarFallback>
                         </Avatar>
 

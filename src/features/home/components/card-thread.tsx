@@ -1,4 +1,4 @@
-import { Heart, MessageCircle } from 'lucide-react';
+import { Heart, MessageSquareText } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
@@ -115,7 +115,7 @@ export default function Cardpost(thread: Thread) {
                 <div className="flex gap-2">
                     <Button
                         variant="ghost"
-                        className="flex gap-1 p-0 h-auto"
+                        className="flex gap-1 p-0 h-auto text-muted-foreground"
                         disabled={isPendingLike || isPendingUnlike}
                         onClick={() =>
                             thread.isLiked
@@ -131,8 +131,15 @@ export default function Cardpost(thread: Thread) {
                         <span>{thread.likesCount}</span>
                     </Button>
 
-                    <Button variant="ghost" className="flex gap-1 p-0 h-auto">
-                        <MessageCircle className="w-[20px] h-[20px]" />
+                    <Button
+                        variant="ghost"
+                        className="flex gap-1 p-0 h-auto text-muted-foreground"
+                    >
+                        {thread.repliesCount >= 0 ? (
+                            <MessageSquareText className="w-[20px] h-[20px] fill-current text-muted-foreground" />
+                        ) : (
+                            <MessageSquareText className="w-[20px] h-[20px]" />
+                        )}
                         <span>{thread.repliesCount}</span>
                         <span>Replies</span>
                     </Button>

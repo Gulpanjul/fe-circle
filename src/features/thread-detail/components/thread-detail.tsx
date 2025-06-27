@@ -1,6 +1,6 @@
 import CardReply from '@/features/home/components/card-reply';
 import CardThreadDetail from '@/features/home/components/card-thread-detail';
-import CreateThread from '@/features/home/components/create-thread';
+import CreateReply from '@/features/home/components/create-reply';
 import type { Thread } from '@/features/thread/types/thread';
 import { api } from '@/lib/api';
 import { useQuery } from '@tanstack/react-query';
@@ -14,7 +14,7 @@ export default function PostDetail() {
         queryKey: [`threads/${threadId}`],
         queryFn: async () => {
             const response = await api.get(`/threads/${threadId}`);
-            return response.data;
+            return response.data.data;
         },
     });
 
@@ -28,8 +28,8 @@ export default function PostDetail() {
                 <>
                     {data && (
                         <>
-                            <CardThreadDetail {...data} />
-                            <CreateThread />
+                            <CardThreadDetail thread={data} />
+                            <CreateReply />
                             {data.replies?.length ? (
                                 <>
                                     {data?.replies?.map((reply) => (
