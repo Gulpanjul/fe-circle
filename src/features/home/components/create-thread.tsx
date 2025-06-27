@@ -1,6 +1,5 @@
 import { ImagePlus } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { userSession } from '@/utils/fake-datas/session';
 import { useRef, useState } from 'react';
 import {
     Dialog,
@@ -22,19 +21,15 @@ import { isAxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { cn } from '@/lib/utils';
+import { useAuthStore } from '@/stores/auth';
+import type { ThreadResponse } from '@/features/thread/dto/thread';
 
-interface ThreadResponse {
-    message: string;
-    data: {
-        id: string;
-        content: string;
-        imageUrl: string | null;
-        createdAt: string;
-        updatedAt: string;
-    };
-}
 export default function CreateThread() {
-    const { fullName, avatarUrl } = userSession;
+    const {
+        user: {
+            profile: { fullName, avatarUrl },
+        },
+    } = useAuthStore();
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const inputFileRef = useRef<HTMLInputElement | null>(null);
     const {
@@ -64,13 +59,16 @@ export default function CreateThread() {
         Error,
         createThreadSchemaDTO
     >({
-        mutationKey: ['create-threads'],
+        mutationKey: ['create-thread'],
         mutationFn: async (data: createThreadSchemaDTO) => {
             const formData = new FormData();
             formData.append('content', data.content);
             formData.append('images', data.images[0]);
 
-            const response = await api.post('/threads', formData);
+            const response = await api.post<ThreadResponse>(
+                '/threads',
+                formData,
+            );
             return response.data;
         },
         onError: (error) => {
@@ -106,7 +104,7 @@ export default function CreateThread() {
             <DialogTrigger asChild>
                 <div className="flex gap-4 border-b py-4">
                     <Avatar className="w-[50px] h-[50px]">
-                        <AvatarImage src={avatarUrl} alt={fullName} />
+                        <AvatarImage src={avatarUrl || ''} alt={fullName} />
                         <AvatarFallback>{fullName.charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div className="flex items-center justify-between w-full">
@@ -125,7 +123,7 @@ export default function CreateThread() {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <div className="flex items-center gap-4 border-b">
                         <Avatar className="w-[50px] h-[50px]">
-                            <AvatarImage src={avatarUrl} alt={fullName} />
+                            <AvatarImage src={avatarUrl || ''} alt={fullName} />
                             <AvatarFallback>
                                 {fullName.charAt(0)}
                             </AvatarFallback>

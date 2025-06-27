@@ -2,7 +2,6 @@ import { Heart, MessageCircle } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import { type Thread } from '../types/posts';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type {
     CreateLikeSchemaDTO,
@@ -11,28 +10,15 @@ import type {
 import { api } from '@/lib/api';
 import { toast } from 'sonner';
 import { isAxiosError } from 'axios';
+import type { LikeResponse } from '@/features/like/dto/like';
+import type { Thread } from '@/features/thread/types/thread';
 
-interface CardThreadProps extends React.HTMLAttributes<HTMLDivElement> {
-    threadData: Thread;
-}
-
-interface LikeResponse {
-    message: string;
-    data: {
-        id: string;
-        userId: string;
-        threadId: string;
-        createdAt: string;
-        updatedAt: string;
-    };
-}
-
-export default function Cardpost({ threadData }: CardThreadProps) {
+export default function Cardpost(thread: Thread) {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
 
     function onClickCard() {
-        navigate(`/detail/${threadData.id}`);
+        navigate(`/detail/${thread.id}`);
     }
 
     const { isPending: isPendingLike, mutateAsync: mutateLike } = useMutation<
@@ -92,25 +78,25 @@ export default function Cardpost({ threadData }: CardThreadProps) {
         <div className="flex gap-4 border-b py-4">
             <Avatar className="w-[50px] h-[50px]">
                 <AvatarImage
-                    src={threadData.user.profile.avatarUrl}
-                    alt={threadData.user.profile.fullName}
+                    src={thread.user?.profile?.avatarUrl || ''}
+                    alt={thread.user?.profile?.fullName || ''}
                 />
                 <AvatarFallback>
-                    {threadData.user.profile.fullName}
+                    {thread.user?.profile?.fullName.slice(0, 2).toUpperCase()}
                 </AvatarFallback>
             </Avatar>
 
             <div className="flex flex-col gap-1">
                 <div className="flex gap-1 text-sm">
                     <span className="font-bold">
-                        {threadData.user.profile.fullName}
+                        {thread.user?.profile?.fullName}
                     </span>
                     <span className="text-muted-foreground">
-                        @{threadData.user.username}
+                        @{thread.user?.username}
                     </span>
                     <span className="text-muted-foreground">•</span>
                     <span className="text-muted-foreground">
-                        {new Date(threadData.createdAt).getHours()}h
+                        {new Date(thread.createdAt).getHours()}h
                     </span>
                 </div>
 
@@ -118,36 +104,36 @@ export default function Cardpost({ threadData }: CardThreadProps) {
                     className="cursor-pointer bg-transparent border-none p-0 text-left"
                     onClick={onClickCard}
                 >
-                    {threadData.content}
+                    {thread.content}
                 </button>
                 <img
                     className="object-contain max-h-75 max-w-75"
-                    src={threadData.images}
+                    src={thread.images}
                     alt="thread images"
                 />
 
                 <div className="flex gap-2">
-                    <Button variant="ghost" className="flex gap-1 p-0 h-auto">
-                        {threadData.isLiked ? (
-                            <Heart className="w-[20px] h-[20px] fill-current text-red-500" />
-                        ) : (
-                            <Heart className="w-[20px] h-[20px]" />
-                        )}
-                        <span>{threadData.likesCount}</span>
-                    </Button>
-
                     <Button
                         variant="ghost"
                         className="flex gap-1 p-0 h-auto"
                         disabled={isPendingLike || isPendingUnlike}
                         onClick={() =>
-                            threadData.isLiked
-                                ? onUnlike({ threadId: threadData.id })
-                                : onLike({ threadId: threadData.id })
+                            thread.isLiked
+                                ? onUnlike({ threadId: thread.id })
+                                : onLike({ threadId: thread.id })
                         }
                     >
+                        {thread.isLiked ? (
+                            <Heart className="w-[20px] h-[20px] fill-current text-red-500" />
+                        ) : (
+                            <Heart className="w-[20px] h-[20px]" />
+                        )}
+                        <span>{thread.likesCount}</span>
+                    </Button>
+
+                    <Button variant="ghost" className="flex gap-1 p-0 h-auto">
                         <MessageCircle className="w-[20px] h-[20px]" />
-                        <span>{threadData.repliesCount}</span>
+                        <span>{thread.repliesCount}</span>
                         <span>Replies</span>
                     </Button>
                 </div>

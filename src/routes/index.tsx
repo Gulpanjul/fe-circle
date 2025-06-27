@@ -32,7 +32,7 @@ const router = createBrowserRouter([
                 element: <ProfilePage />,
             },
             {
-                path: '/detail/:id',
+                path: '/detail/:threadId',
                 element: <ThreadDetailPage />,
             },
         ],

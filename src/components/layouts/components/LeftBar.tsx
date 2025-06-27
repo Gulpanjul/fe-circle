@@ -40,7 +40,7 @@ export function LeftBar(props: React.HTMLAttributes<HTMLDivElement>) {
                                 className={cn(
                                     'w-[27px] h-[27px] box-content',
                                     isActive &&
-                                        'bg-white text-secondary rounded-sm outline-2',
+                                        'fill-white text-secondary rounded-sm outline-2',
                                 )}
                             />
                             <span>{label}</span>

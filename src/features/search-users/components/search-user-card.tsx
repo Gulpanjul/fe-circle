@@ -22,7 +22,7 @@ export default function SearchUserCard({
                 </AvatarFallback>
             </Avatar>
 
-            <div className="flex flex-col gap-1 flex-[10]">
+            <div className="flex flex-col flex-[10]">
                 <p className="font-bold">{searchUserData.profile.fullName}</p>
                 <p className="text-muted-foreground">
                     @{searchUserData.username}

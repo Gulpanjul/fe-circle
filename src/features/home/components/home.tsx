@@ -1,9 +1,9 @@
 import CardThread from './card-thread';
 import CreateThread from './create-thread';
-import { type Thread } from '../types/posts';
 import { useQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 import { api } from '@/lib/api';
+import type { Thread } from '@/features/thread/types/thread';
 
 export default function Home() {
     const { data, isLoading, isError, failureReason } = useQuery({
@@ -29,7 +29,7 @@ export default function Home() {
             ) : (
                 <div className="flex flex-col gap-4 mt-4">
                     {threads.map((thread: Thread) => (
-                        <CardThread threadData={thread} key={thread.id} />
+                        <CardThread {...thread} key={thread.id} />
                     ))}
                 </div>
             )}
