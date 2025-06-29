@@ -1,7 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { formatDate } from '@/utils/format-date';
-import { Button } from '@/components/ui/button';
-import { Heart, MessageSquareText } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { api } from '@/lib/api';
@@ -13,6 +11,7 @@ import type { LikeResponse } from '@/features/like/dto/like';
 import { isAxiosError } from 'axios';
 import { toast } from 'sonner';
 import type { Thread } from '@/features/thread/types/thread';
+import ThreadActions from '@/features/thread-detail/components/thread-actions';
 
 export default function CardThreadDetail({ thread }: { thread: Thread }) {
     const { threadId } = useParams();
@@ -101,38 +100,13 @@ export default function CardThreadDetail({ thread }: { thread: Thread }) {
                     {formatDate(new Date(thread.createdAt))}
                 </p>
 
-                <div className="flex gap-2">
-                    <Button
-                        variant="ghost"
-                        className="flex gap-1 p-0 h-auto text-muted-foreground"
-                        disabled={isPendingLike || isPendingUnlike}
-                        onClick={() =>
-                            thread.isLiked
-                                ? onUnlike({ threadId: thread.id })
-                                : onLike({ threadId: thread.id })
-                        }
-                    >
-                        {thread.isLiked ? (
-                            <Heart className="w-[20px] h-[20px] fill-current text-red-500" />
-                        ) : (
-                            <Heart className="w-[20px] h-[20px]" />
-                        )}
-                        <span>{thread.likesCount}</span>
-                    </Button>
-
-                    <Button
-                        variant="ghost"
-                        className="flex gap-1 p-0 h-auto text-muted-foreground"
-                    >
-                        {thread.repliesCount > 0 ? (
-                            <MessageSquareText className="w-[20px] h-[20px] fill-current text-muted-foreground" />
-                        ) : (
-                            <MessageSquareText className="w-[20px] h-[20px]" />
-                        )}
-                        <span>{thread.repliesCount}</span>
-                        <span>Replies</span>
-                    </Button>
-                </div>
+                <ThreadActions
+                    thread={thread}
+                    isPendingLike={isPendingLike}
+                    isPendingUnlike={isPendingUnlike}
+                    onLike={onLike}
+                    onUnlike={onUnlike}
+                />
             </div>
         </div>
     );

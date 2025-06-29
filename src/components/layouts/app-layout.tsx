@@ -5,6 +5,7 @@ import { RightBar } from './components/RightBar';
 import { useQuery } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
 import { api } from '@/lib/api';
+import { IconOnlyLeftBar } from './components/IconOnlyLeftBar';
 
 export default function AppLayout() {
     const { user, setUser, logout } = useAuthStore();
@@ -38,16 +39,21 @@ export default function AppLayout() {
         if (!user?.username) return <Navigate to="/login" />;
 
         return (
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr]">
-                <div className="hidden lg:block h-screen p-10">
-                    <LeftBar />
+            <div className="flex justify-center min-h-screen">
+                <div className="flex-none">
+                    <div className="hidden xl:block p-10 w-[280px]">
+                        <LeftBar />
+                    </div>
+                    <div className="block xl:hidden justify-end p-4">
+                        <IconOnlyLeftBar />
+                    </div>
                 </div>
 
-                <div className="p-10 border-x outline">
+                <div className="flex-4 p-10 border-x outline min-w-0">
                     <Outlet />
                 </div>
 
-                <div className="hidden lg:flex flex-col gap-4 border-l border-outline p-10">
+                <div className="hidden lg:block w-[320px] xl:w-[360px] 2xl:w-[400px] p-10">
                     <RightBar />
                 </div>
             </div>

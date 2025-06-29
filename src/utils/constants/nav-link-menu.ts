@@ -1,17 +1,21 @@
+import { type IconType } from 'react-icons';
 import {
-    CircleUserRound,
-    Heart,
-    Home,
-    UserRound,
-    type LucideIcon,
-} from 'lucide-react';
+    RiAccountCircleFill,
+    RiAccountCircleLine,
+    RiHeart2Fill,
+    RiHeart2Line,
+    RiHome7Fill,
+    RiHome7Line,
+    RiUserSearchFill,
+    RiUserSearchLine,
+} from 'react-icons/ri';
 
 interface NavLinkMenu {
     label: string;
     path: string;
     logo: {
-        fill: LucideIcon;
-        outline: LucideIcon;
+        fill: IconType;
+        outline: IconType;
     };
 }
 
@@ -20,32 +24,32 @@ export const NAV_LINK_MENU: NavLinkMenu[] = [
         label: 'Home',
         path: '/',
         logo: {
-            fill: Home,
-            outline: Home,
+            fill: RiHome7Fill,
+            outline: RiHome7Line,
         },
     },
     {
         label: 'Search',
         path: '/search',
         logo: {
-            fill: UserRound,
-            outline: UserRound,
+            fill: RiUserSearchFill,
+            outline: RiUserSearchLine,
         },
     },
     {
         label: 'Follows',
         path: '/follows',
         logo: {
-            fill: Heart,
-            outline: Heart,
+            fill: RiHeart2Fill,
+            outline: RiHeart2Line,
         },
     },
     {
         label: 'Profile',
         path: '/profile',
         logo: {
-            fill: CircleUserRound,
-            outline: CircleUserRound,
+            fill: RiAccountCircleFill,
+            outline: RiAccountCircleLine,
         },
     },
 ];

@@ -12,11 +12,11 @@ import {
 
 export function RightBar() {
     return (
-        <>
+        <div className="flex flex-col gap-3">
             <Profile />
             <Suggestions />
             <Meta />
-        </>
+        </div>
     );
 }
 
@@ -37,7 +37,7 @@ function Profile() {
                         <img
                             src={bannerUrl || Banner}
                             alt="Banner"
-                            className="w-full h-[40px] sm:h-[140px] md:h-[100px] object-cover rounded-lg"
+                            className="w-full h-[3rem] sm:h-[9rem] md:h-[7rem] object-cover rounded-lg"
                         />
 
                         <div className="absolute -bottom-11 left-0 right-0 pl-4 sm:pl-6 flex justify-between items-end">
@@ -126,10 +126,10 @@ function Meta() {
     return (
         <Card className="bg-secondary">
             <CardHeader>
-                <CardTitle className="text-sm flex flex-wrap xl:flex-col items-center gap-2">
+                <CardTitle className="text-sm flex flex-wrap gap-1">
                     Developed By
-                    <span className="font-semibold">Andhika Chandra Gulpa</span>
-                    <span className="text-muted-foreground lg:hidden">•</span>
+                    <span className="font-semibold"> Andhika C. Gulpa</span>
+                    <span className="text-muted-foreground">•</span>
                     {/* Social Icons */}
                     <div className="flex gap-2 items-center">
                         <a

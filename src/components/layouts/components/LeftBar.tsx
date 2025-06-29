@@ -39,8 +39,7 @@ export function LeftBar(props: React.HTMLAttributes<HTMLDivElement>) {
                             <Icon
                                 className={cn(
                                     'w-[27px] h-[27px] box-content',
-                                    isActive &&
-                                        'fill-white text-secondary rounded-sm outline-2',
+                                    isActive && 'rounded-sm outline-2',
                                 )}
                             />
                             <span>{label}</span>
