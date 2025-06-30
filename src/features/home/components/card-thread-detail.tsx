@@ -57,7 +57,7 @@ export default function CardThreadDetail({ thread }: { thread: Thread }) {
             },
             onSuccess: async () => {
                 await queryClient.invalidateQueries({
-                    queryKey: ['threads/${threadId}'],
+                    queryKey: [`threads/${threadId}`],
                 });
             },
         });
@@ -96,6 +96,13 @@ export default function CardThreadDetail({ thread }: { thread: Thread }) {
 
             <div className="flex flex-col gap-1">
                 <p>{thread.content}</p>
+                {thread.images && (
+                    <img
+                        className="object-contain max-h-75 max-w-75"
+                        src={thread.images}
+                        alt="thread images"
+                    />
+                )}
                 <p className="text-muted-foreground text-sm">
                     {formatDate(new Date(thread.createdAt))}
                 </p>

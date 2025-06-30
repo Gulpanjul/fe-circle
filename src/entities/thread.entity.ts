@@ -5,10 +5,14 @@ import type { UserEntity } from './user.entity';
 export interface ThreadEntity {
     id: string;
     content: string;
-    images: string;
+    images?: string;
+    userId: string;
+
     user?: UserEntity;
+
     like?: LikeEntity[];
     replies?: ReplyEntity[];
-    createdAt: string;
-    updatedAt: string;
+
+    createdAt: Date;
+    updatedAt: Date;
 }

@@ -39,21 +39,25 @@ export default function AppLayout() {
         if (!user?.username) return <Navigate to="/login" />;
 
         return (
-            <div className="flex justify-center min-h-screen">
+            <div className="flex justify-center min-h-screen w-full max-w-[1920px] mx-auto">
+                {/* Left Sidebar */}
                 <div className="flex-none">
-                    <div className="hidden xl:block p-10 w-[280px]">
+                    {/* Show full LeftBar on xl+, IconOnlyLeftBar on smaller screens */}
+                    <div className="hidden xl:block w-[280px] p-10 sticky top-0">
                         <LeftBar />
                     </div>
-                    <div className="block xl:hidden justify-end p-4">
+                    <div className="block xl:hidden p-4 sticky top-0">
                         <IconOnlyLeftBar />
                     </div>
                 </div>
 
-                <div className="flex-4 p-10 border-x outline min-w-0">
+                {/* Main Content (Thread/Post/Outlet) */}
+                <div className="flex-[2] min-w-0 border-x outline pt-10">
                     <Outlet />
                 </div>
 
-                <div className="hidden lg:block w-[320px] xl:w-[360px] 2xl:w-[400px] p-10">
+                {/* Right Sidebar */}
+                <div className="hidden lg:block flex-[1] p-6 sm:p-8 md:p-10 w-[320px] xl:w-[360px] 2xl:w-[400px]">
                     <RightBar />
                 </div>
             </div>
