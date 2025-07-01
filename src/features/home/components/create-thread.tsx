@@ -16,11 +16,11 @@ import {
 } from '@/utils/schemas/thread.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { api } from '@/lib/api';
+import { api } from '@/libs/api';
 import { isAxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { cn } from '@/lib/utils';
+import { cn } from '@/libs/utils';
 import { useAuthStore } from '@/stores/auth';
 import type { ThreadResponse } from '@/features/thread/dto/thread';
 

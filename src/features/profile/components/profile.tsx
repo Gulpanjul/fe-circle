@@ -1,13 +1,13 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import type { ThreadEntity } from '@/entities/thread.entity';
-import { api } from '@/lib/api';
+import { api } from '@/libs/api';
 import { useAuthStore } from '@/stores/auth';
 import { useQuery } from '@tanstack/react-query';
 import Banner from '@/assets/Banner.png';
 import CardThreadProfile from '@/features/home/components/card-thread-profile';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { cn } from '@/lib/utils';
+import { cn } from '@/libs/utils';
 
 export default function Profile() {
     const {

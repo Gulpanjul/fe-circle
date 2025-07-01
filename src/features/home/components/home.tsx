@@ -2,7 +2,7 @@ import CardThread from './card-thread';
 import CreateThread from './create-thread';
 import { useQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
-import { api } from '@/lib/api';
+import { api } from '@/libs/api';
 import type { Thread } from '@/features/thread/types/thread';
 
 export default function Home() {

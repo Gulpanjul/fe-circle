@@ -4,7 +4,7 @@ import { useAuthStore } from '@/stores/auth';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { LogOutIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { cn } from '@/libs/utils';
 import Cookies from 'js-cookie';
 import type React from 'react';
 

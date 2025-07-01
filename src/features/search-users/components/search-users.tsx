@@ -5,7 +5,7 @@ import SearchUserCard from './search-user-card';
 import { useEffect, useState } from 'react';
 import type { SearchUser } from '../types/search-user';
 import { useQuery } from '@tanstack/react-query';
-import { api } from '@/lib/api';
+import { api } from '@/libs/api';
 
 export default function SearchUsers() {
     const [searchText, setSearchText] = useState<string>('');

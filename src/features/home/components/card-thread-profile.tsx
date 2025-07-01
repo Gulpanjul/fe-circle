@@ -7,7 +7,7 @@ import type {
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { isAxiosError } from 'axios';
-import { api } from '@/lib/api';
+import { api } from '@/libs/api';
 import type { LikeResponse } from '@/features/like/dto/like';
 import ThreadActions from '@/features/thread-detail/components/thread-actions';
 import type { Thread } from '@/features/thread/types/thread';

@@ -8,8 +8,8 @@ import {
 } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import type { ReplyResponse } from '@/features/reply/dto/reply';
-import { api } from '@/lib/api';
-import { cn } from '@/lib/utils';
+import { api } from '@/libs/api';
+import { cn } from '@/libs/utils';
 import { useAuthStore } from '@/stores/auth';
 import {
     createReplySchema,

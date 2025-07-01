@@ -5,7 +5,7 @@ import type {
     CreateLikeSchemaDTO,
     DeleteLikeSchemaDTO,
 } from '@/utils/schemas/like.schema';
-import { api } from '@/lib/api';
+import { api } from '@/libs/api';
 import { toast } from 'sonner';
 import { isAxiosError } from 'axios';
 import type { LikeResponse } from '@/features/like/dto/like';

@@ -4,7 +4,7 @@ import { LeftBar } from './components/LeftBar';
 import { RightBar } from './components/RightBar';
 import { useQuery } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
-import { api } from '@/lib/api';
+import { api } from '@/libs/api';
 import { IconOnlyLeftBar } from './components/IconOnlyLeftBar';
 
 export default function AppLayout() {

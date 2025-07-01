@@ -2,7 +2,7 @@ import CardReply from '@/features/home/components/card-reply';
 import CardThreadDetail from '@/features/home/components/card-thread-detail';
 import CreateReply from '@/features/home/components/create-reply';
 import type { Thread } from '@/features/thread/types/thread';
-import { api } from '@/lib/api';
+import { api } from '@/libs/api';
 import { useQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 import { useParams } from 'react-router-dom';
