@@ -38,7 +38,7 @@ export default function Cardpost(thread: Thread) {
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: ['thread'],
+                queryKey: ['threads'],
             });
         },
     });
@@ -60,7 +60,7 @@ export default function Cardpost(thread: Thread) {
             },
             onSuccess: async () => {
                 await queryClient.invalidateQueries({
-                    queryKey: ['thread'],
+                    queryKey: ['threads'],
                 });
             },
         });
