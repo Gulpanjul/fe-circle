@@ -2,7 +2,7 @@ import type { UserEntity } from './user.entity';
 
 export interface FollowEntity {
     id: string;
-    followerId: string;
+    followedId: string;
     followingId: string;
 
     followed?: UserEntity;

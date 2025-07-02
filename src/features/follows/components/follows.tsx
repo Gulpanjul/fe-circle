@@ -3,6 +3,9 @@ import { cn } from '@/libs/utils';
 import { useFollowers } from '../hooks/useFollowers';
 import { useFollowings } from '../hooks/useFollowings';
 import { UserListItem } from './userListItem';
+import type { FollowEntity } from '@/entities/follow.entity';
+import { api } from '@/libs/api';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function Follows() {
     const { data: followerData, isLoading: loadingFollowers } = useFollowers();
@@ -11,6 +14,22 @@ export default function Follows() {
 
     const followers = followerData ?? [];
     const followings = followingData ?? [];
+    const queryClient = useQueryClient();
+
+    const handleToggleFollow = async (f: FollowEntity) => {
+        try {
+            if (f.isFollowed) {
+                await api.delete(`/follow/${f.followedId}`);
+            } else {
+                await api.post('/follow', {
+                    followedId: f.followedId,
+                });
+            }
+            queryClient.invalidateQueries();
+        } catch (error) {
+            console.error('Toggle follow failed:', error);
+        }
+    };
 
     return (
         <div className="space-y-4">
@@ -61,6 +80,14 @@ export default function Follows() {
                                         avatarUrl={
                                             profile.avatarUrl ?? undefined
                                         }
+                                        bio={
+                                            profile.bio?.trim() ||
+                                            'bio not available'
+                                        }
+                                        isFollowed={f.isFollowed}
+                                        onToggleFollow={() =>
+                                            handleToggleFollow(f)
+                                        }
                                     />
                                 );
                             })}
@@ -92,6 +119,14 @@ export default function Follows() {
                                         username={user.username}
                                         avatarUrl={
                                             profile.avatarUrl ?? undefined
+                                        }
+                                        bio={
+                                            profile.bio?.trim() ||
+                                            'bio not available'
+                                        }
+                                        isFollowed={f.isFollowed}
+                                        onToggleFollow={() =>
+                                            handleToggleFollow(f)
                                         }
                                     />
                                 );
