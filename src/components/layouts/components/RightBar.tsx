@@ -9,6 +9,7 @@ import {
     InstagramIcon,
     LinkedinIcon,
 } from 'lucide-react';
+import EditProfile from '@/features/profile/components/edit-profile';
 
 export function RightBar() {
     return (
@@ -23,6 +24,8 @@ export function RightBar() {
 function Profile() {
     const {
         username,
+        followers,
+        followings,
         profile: { fullName, bio, bannerUrl, avatarUrl },
     } = useAuthStore((state) => state.user);
     return (
@@ -52,9 +55,7 @@ function Profile() {
                                 <AvatarFallback>{fullName?.[0]}</AvatarFallback>
                             </Avatar>
 
-                            <Button className="bg-brand text-white text-sm sm:text-base">
-                                Edit Profile
-                            </Button>
+                            <EditProfile />
                         </div>
                     </div>
 
@@ -71,13 +72,17 @@ function Profile() {
 
                         <div className="flex gap-6 mt-2 text-sm sm:text-base">
                             <div className="flex gap-1">
-                                <span className="font-bold">{100}</span>
+                                <span className="font-bold">
+                                    {followings?.length}
+                                </span>
                                 <span className="text-muted-foreground">
                                     Following
                                 </span>
                             </div>
                             <div className="flex gap-1">
-                                <span className="font-bold">{200}</span>
+                                <span className="font-bold">
+                                    {followers?.length}
+                                </span>
                                 <span className="text-muted-foreground">
                                     Followers
                                 </span>
