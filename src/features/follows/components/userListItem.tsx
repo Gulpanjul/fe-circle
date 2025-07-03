@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import React from 'react';
-import type { UserListItemProps } from '../types/UserListItemProps';
 import { Button } from '@/components/ui/button';
+import type { UserListItemProps } from '../types/userListItemProps';
 
 export const UserListItem: React.FC<UserListItemProps> = ({
     id,
