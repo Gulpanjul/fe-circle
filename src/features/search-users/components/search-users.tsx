@@ -2,7 +2,7 @@ import { Loader2, UserSearch } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useDebounce } from 'use-debounce';
 import SearchUserCard from './search-user-card';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { SearchUser } from '../types/search-user';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/libs/api';
@@ -15,7 +15,7 @@ export default function SearchUsers() {
         setSearchText(e.target.value);
     }
 
-    const { data, isLoading, refetch } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['search-users'],
         queryFn: async () => {
             const response = await api.get(
@@ -23,13 +23,10 @@ export default function SearchUsers() {
             );
             return response.data;
         },
+        enabled: !!searchTextDebounced.trim(),
     });
 
     const users = data?.data ?? [];
-
-    useEffect(() => {
-        refetch();
-    }, [searchTextDebounced, refetch]);
 
     return (
         <div className="space-y-4">
