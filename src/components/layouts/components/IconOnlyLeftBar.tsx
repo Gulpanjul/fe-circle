@@ -20,8 +20,12 @@ export function IconOnlyLeftBar(props: React.HTMLAttributes<HTMLDivElement>) {
     }
 
     return (
-        <div {...props}>
-            <div className="flex flex-col items-end justify-between gap-6">
+        <div
+            {...props}
+            className="flex flex-col h-full items-end justify-between"
+        >
+            <div className="flex flex-col gap-6">
+                {' '}
                 <img src={brandLogo} alt="Logo" className="w-14 h-14" />
                 {NAV_LINK_MENU.map(({ label, logo, path }, index) => {
                     const isActive = pathname === path;
@@ -43,17 +47,18 @@ export function IconOnlyLeftBar(props: React.HTMLAttributes<HTMLDivElement>) {
                         </Link>
                     );
                 })}
-                <Button
-                    onClick={onLogout}
-                    variant="ghost"
-                    className="group relative flex items-center justify-center w-14 h-14"
-                >
-                    <LogOutIcon className="w-5 h-5" />
-                    <span className="absolute left-full ml-2 whitespace-nowrap rounded bg-muted px-2 py-1 text-sm opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow">
-                        Logout
-                    </span>
-                </Button>
             </div>
+
+            <Button
+                onClick={onLogout}
+                variant="ghost"
+                className="group relative flex items-center justify-center w-14 h-14"
+            >
+                <LogOutIcon className="w-5 h-5" />
+                <span className="absolute left-full ml-2 whitespace-nowrap rounded bg-muted px-2 py-1 text-sm opacity-0 group-hover:opacity-100 transition-opacity z-10 shadow">
+                    Logout
+                </span>
+            </Button>
         </div>
     );
 }

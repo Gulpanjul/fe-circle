@@ -41,12 +41,12 @@ export default function AppLayout() {
         return (
             <div className="flex justify-center min-h-screen w-full max-w-[1920px] mx-auto">
                 {/* Left Sidebar */}
-                <div className="flex-none">
+                <div>
                     {/* Show full LeftBar on xl+, IconOnlyLeftBar on smaller screens */}
-                    <div className="hidden xl:block w-[280px] p-10 sticky top-0">
+                    <div className="hidden xl:block w-[280px] h-screen sticky top-0">
                         <LeftBar />
                     </div>
-                    <div className="block xl:hidden p-4 sticky top-0">
+                    <div className="block xl:hidden p-4 h-screen sticky top-0">
                         <IconOnlyLeftBar />
                     </div>
                 </div>

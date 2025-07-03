@@ -20,9 +20,16 @@ export function LeftBar(props: React.HTMLAttributes<HTMLDivElement>) {
     }
 
     return (
-        <div {...props}>
-            <img src={brandLogo} alt="Logo" className="w-[220px] px-4" />
-            <div className="mt-6 flex flex-col gap-2">
+        <div
+            {...props}
+            className="flex flex-col h-full items-end justify-between p-10"
+        >
+            <div className="flex flex-col gap-2">
+                <img
+                    src={brandLogo}
+                    alt="Logo"
+                    className="w-[220px] px-4 mb-6"
+                />
                 {NAV_LINK_MENU.map(({ label, logo, path }, index) => {
                     const isActive = pathname === path;
                     const Icon = isActive ? logo.fill : logo.outline;
@@ -46,15 +53,15 @@ export function LeftBar(props: React.HTMLAttributes<HTMLDivElement>) {
                         </Link>
                     );
                 })}
-                <Button
-                    onClick={onLogout}
-                    variant="ghost"
-                    className="flex items-center gap-2"
-                >
-                    <LogOutIcon className="w-5 h-5" />
-                    <span>Logout</span>
-                </Button>
             </div>
+            <Button
+                onClick={onLogout}
+                variant="ghost"
+                className="flex justify-start gap-4 px-5 py-4 hover:bg-muted rounded-md w-full h-[67px]"
+            >
+                <LogOutIcon className="w-[27px] h-[27px] box-content" />
+                <span>Logout</span>
+            </Button>
         </div>
     );
 }
