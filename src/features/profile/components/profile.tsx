@@ -1,5 +1,4 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import type { ThreadEntity } from '@/entities/thread.entity';
 import { api } from '@/libs/api';
 import { useAuthStore } from '@/stores/auth';
@@ -8,6 +7,7 @@ import Banner from '@/assets/Banner.png';
 import CardThreadProfile from '@/features/home/components/card-thread-profile';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/libs/utils';
+import EditProfile from './edit-profile';
 
 export default function Profile() {
     const {
@@ -47,12 +47,7 @@ export default function Profile() {
                         <AvatarFallback>{fullName?.[0]}</AvatarFallback>
                     </Avatar>
 
-                    <Button
-                        variant="outline"
-                        className="rounded-full h-8 text-xs hover:bg-muted transition-all"
-                    >
-                        Edit Profile
-                    </Button>
+                    <EditProfile />
                 </div>
                 <div className="flex flex-col gap-1">
                     <p className="text-xl font-bold">✨{fullName}✨</p>
