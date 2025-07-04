@@ -4,10 +4,10 @@ import { api } from '@/libs/api';
 import { useAuthStore } from '@/stores/auth';
 import { useQuery } from '@tanstack/react-query';
 import Banner from '@/assets/Banner.png';
-import CardThreadProfile from '@/features/home/components/card-thread-profile';
+import CardThreadProfile from '@/features/home/components/cardThreadProfile';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/libs/utils';
-import EditProfile from './edit-profile';
+import EditProfile from './editProfile';
 
 export default function Profile() {
     const {

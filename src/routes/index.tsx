@@ -5,11 +5,11 @@ import ProfilePage from './profile';
 import RegisterPage from './register';
 import LoginPage from './login';
 import ForgotPasswordPage from './forgot-password';
-import ResetPasswordPage from './reset-password';
-import AuthLayout from '@/components/layouts/auth-layout';
-import AppLayout from '@/components/layouts/app-layout';
-import ThreadDetailPage from './thread-detail';
-import SearchUsersPage from './search-users';
+import ResetPasswordPage from './resetPassword';
+import AuthLayout from '@/components/layouts/authLayout';
+import AppLayout from '@/components/layouts/appLayout';
+import ThreadDetailPage from './threadDetail';
+import SearchUsersPage from './searchUsers';
 
 const router = createBrowserRouter([
     {

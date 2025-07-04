@@ -1,6 +1,6 @@
-import CardReply from '@/features/home/components/card-reply';
-import CardThreadDetail from '@/features/home/components/card-thread-detail';
-import CreateReply from '@/features/home/components/create-reply';
+import CardReply from '@/features/home/components/cardReply';
+import CardThreadDetail from '@/features/home/components/cardThreadDetail';
+import CreateReply from '@/features/home/components/createReply';
 import type { Thread } from '@/features/thread/types/thread';
 import { api } from '@/libs/api';
 import { useQuery } from '@tanstack/react-query';

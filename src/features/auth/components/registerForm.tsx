@@ -2,26 +2,40 @@ import brandLogo from '@/assets/Logo.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Link } from 'react-router-dom';
-import { useLoginForm } from '../hooks/use-login-form';
 import { Loader2 } from 'lucide-react';
+import { useRegisterForm } from '../hooks/useRegisterForm';
 
-export default function LoginForm() {
+export default function RegisterForm() {
     const { errors, handleSubmit, isPending, onSubmit, register } =
-        useLoginForm();
+        useRegisterForm();
     return (
         <div className="flex flex-col gap-3">
             <img src={brandLogo} alt="Circle logo" className="w-[108px]" />
-            <h2 className="text-2xl font-semibold">Login to Circle</h2>
-
+            <h2 className="text-2xl font-semibold">
+                Create an Account to Circle
+            </h2>
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col gap-3"
             >
                 <div className="space-y-1">
-                    <Input
-                        placeholder="Email/Username"
-                        {...register('email')}
-                    />
+                    <Input placeholder="Full Name" {...register('fullName')} />
+                    {errors.fullName && (
+                        <p className="text-sm text-destructive">
+                            {errors.fullName.message}
+                        </p>
+                    )}
+                </div>
+                <div className="space-y-1">
+                    <Input placeholder="Username" {...register('username')} />
+                    {errors.username && (
+                        <p className="text-sm text-destructive">
+                            {errors.username.message}
+                        </p>
+                    )}
+                </div>
+                <div className="space-y-1">
+                    <Input placeholder="Email" {...register('email')} />
                     {errors.email && (
                         <p className="text-sm text-destructive">
                             {errors.email.message}
@@ -37,19 +51,6 @@ export default function LoginForm() {
                     )}
                 </div>
 
-                <div className="flex justify-end">
-                    <Link
-                        to="/forgot-password"
-                        className="text-sm text-primary underline"
-                    >
-                        Forgot password?
-                    </Link>
-                </div>
-
-                {/* <Button className="bg-primary text-primary-foreground w-full">
-                    Login
-                </Button> */}
-
                 <Button
                     type="submit"
                     className="bg-primary text-primary-foreground"
@@ -58,14 +59,14 @@ export default function LoginForm() {
                     {isPending ? (
                         <Loader2 className="animate-spin h-5 w-5 text-muted-foreground" />
                     ) : (
-                        'Login'
+                        'Register'
                     )}
                 </Button>
 
                 <p className="text-sm">
-                    Don&apos;t have an account yet?{' '}
-                    <Link to="/register" className="text-primary underline">
-                        Create account
+                    Already have account?{' '}
+                    <Link to="/login" className="text-primary underline">
+                        Login
                     </Link>
                 </p>
             </form>

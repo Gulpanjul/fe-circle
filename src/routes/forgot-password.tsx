@@ -1,4 +1,4 @@
-import ForgotPasswordForm from '@/features/auth/components/forgot-pasword-form';
+import ForgotPasswordForm from '@/features/auth/components/forgotPaswordForm';
 
 export default function ForgotPasswordPage() {
     return (

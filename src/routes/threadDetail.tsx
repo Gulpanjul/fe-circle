@@ -1,4 +1,4 @@
-import ThreadDetail from '@/features/thread-detail/components/thread-detail';
+import ThreadDetail from '@/features/thread-detail/components/threadDetail';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';

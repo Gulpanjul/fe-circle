@@ -1,5 +1,5 @@
-import CardThread from './card-thread';
-import CreateThread from './create-thread';
+import CardThread from './cardThread';
+import CreateThread from './createThread';
 import { useQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 import { api } from '@/libs/api';

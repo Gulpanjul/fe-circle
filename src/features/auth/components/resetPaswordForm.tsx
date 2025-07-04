@@ -1,29 +1,43 @@
 import brandLogo from '@/assets/Logo.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useForgotPasswordForm } from '../hooks/use-forgot-password-form';
+import { usePasswordForm } from '../hooks/usePasswordForm';
 import { Loader2 } from 'lucide-react';
 
-export default function ForgotPasswordForm(
+export default function ResetPasswordForm(
     props: React.HTMLAttributes<HTMLDivElement>,
 ) {
-    const { errors, handleSubmit, isPending, onSubmit, register } =
-        useForgotPasswordForm();
+    const { errors, handleSubmit, register, isPending, onSubmit } =
+        usePasswordForm();
 
     return (
         <div className="flex flex-col gap-3" {...props}>
             <img src={brandLogo} alt="Circle logo" className="w-[108px]" />
-            <h2 className="text-2xl font-semibold">Forgot password</h2>
+            <h2 className="text-2xl font-semibold">Reset password</h2>
 
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col gap-3"
             >
                 <div className="space-y-1">
-                    <Input placeholder="Email" {...register('email')} />
-                    {errors.email && (
+                    <Input
+                        placeholder="Password"
+                        {...register('oldPassword')}
+                    />
+                    {errors.oldPassword && (
                         <p className="text-sm text-destructive">
-                            {errors.email.message}
+                            {errors.oldPassword.message}
+                        </p>
+                    )}
+                </div>
+                <div className="space-y-1">
+                    <Input
+                        placeholder="Confirm password"
+                        {...register('newPassword')}
+                    />
+                    {errors.newPassword && (
+                        <p className="text-sm text-destructive">
+                            {errors.newPassword.message}
                         </p>
                     )}
                 </div>
@@ -35,7 +49,7 @@ export default function ForgotPasswordForm(
                     {isPending ? (
                         <Loader2 className="animate-spin h-5 w-5 text-muted-foreground" />
                     ) : (
-                        'Send'
+                        'Register'
                     )}
                 </Button>
             </form>

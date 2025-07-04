@@ -1,6 +1,6 @@
 import { api } from '@/libs/api';
 import { useAuthStore } from '@/stores/auth';
-import type { EditProfileSchemaDTO } from '@/utils/schemas/profile.schema';
+import type { EditProfileSchemaDTO } from '@/utils/schemas/profile-schema';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { toast } from 'sonner';

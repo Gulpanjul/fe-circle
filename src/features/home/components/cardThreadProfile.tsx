@@ -1,21 +1,24 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { formatDate } from '@/utils/format-date';
-import { useParams } from 'react-router-dom';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { api } from '@/libs/api';
+import { useNavigate } from 'react-router-dom';
 import type {
     CreateLikeSchemaDTO,
     DeleteLikeSchemaDTO,
-} from '@/utils/schemas/like.schema';
-import type { LikeResponse } from '@/features/like/dto/like';
-import { isAxiosError } from 'axios';
+} from '@/utils/schemas/like-schema';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
+import { isAxiosError } from 'axios';
+import { api } from '@/libs/api';
+import type { LikeResponse } from '@/features/like/dto/like';
+import ThreadActions from '@/features/thread-detail/components/threadActions';
 import type { Thread } from '@/features/thread/types/thread';
-import ThreadActions from '@/features/thread-detail/components/thread-actions';
 
-export default function CardThreadDetail({ thread }: { thread: Thread }) {
-    const { threadId } = useParams();
+export default function CardThreadProfile(thread: Thread) {
+    const navigate = useNavigate();
     const queryClient = useQueryClient();
+
+    function onClickCard() {
+        navigate(`/detail/${thread.id}`);
+    }
 
     const { isPending: isPendingLike, mutateAsync: mutateLike } = useMutation<
         LikeResponse,
@@ -35,7 +38,7 @@ export default function CardThreadDetail({ thread }: { thread: Thread }) {
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: [`threads/${threadId}`],
+                queryKey: ['thread'],
             });
         },
     });
@@ -57,7 +60,7 @@ export default function CardThreadDetail({ thread }: { thread: Thread }) {
             },
             onSuccess: async () => {
                 await queryClient.invalidateQueries({
-                    queryKey: [`threads/${threadId}`],
+                    queryKey: ['thread'],
                 });
             },
         });
@@ -71,8 +74,9 @@ export default function CardThreadDetail({ thread }: { thread: Thread }) {
     }
 
     return (
-        <div className="flex flex-col gap-4 border-b py-4">
-            <div className="flex gap-1">
+        <div className="border-b">
+            <div className="flex gap-4 px-8 py-4">
+                <div></div>
                 <Avatar className="w-[50px] h-[50px]">
                     <AvatarImage
                         src={thread.user?.profile?.avatarUrl || ''}
@@ -84,36 +88,43 @@ export default function CardThreadDetail({ thread }: { thread: Thread }) {
                             .toUpperCase()}
                     </AvatarFallback>
                 </Avatar>
-                <div>
-                    <p className="font-bold">
-                        {thread.user?.profile?.fullName || 'fullname'}
-                    </p>
-                    <p className="text-muted-foreground">
-                        @{thread.user?.username || 'username'}
-                    </p>
-                </div>
-            </div>
 
-            <div className="flex flex-col gap-1">
-                <p>{thread.content}</p>
-                {thread.images && (
-                    <img
-                        className="object-contain max-h-75 max-w-75"
-                        src={thread.images}
-                        alt="thread images"
+                <div className="flex flex-col gap-1">
+                    <div className="flex gap-1 text-sm">
+                        <span className="font-bold">
+                            {thread.user?.profile?.fullName}
+                        </span>
+                        <span className="text-muted-foreground">
+                            @{thread.user?.username}
+                        </span>
+                        <span className="text-muted-foreground">•</span>
+                        <span className="text-muted-foreground">
+                            {new Date(thread.createdAt).getHours()}h
+                        </span>
+                    </div>
+
+                    <button
+                        className="cursor-pointer bg-transparent border-none p-0 text-left"
+                        onClick={onClickCard}
+                    >
+                        {thread.content}
+                    </button>
+                    {thread.images && (
+                        <img
+                            className="object-contain max-h-75 max-w-75"
+                            src={thread.images}
+                            alt="thread images"
+                        />
+                    )}
+
+                    <ThreadActions
+                        thread={thread}
+                        isPendingLike={isPendingLike}
+                        isPendingUnlike={isPendingUnlike}
+                        onLike={onLike}
+                        onUnlike={onUnlike}
                     />
-                )}
-                <p className="text-muted-foreground text-sm">
-                    {formatDate(new Date(thread.createdAt))}
-                </p>
-
-                <ThreadActions
-                    thread={thread}
-                    isPendingLike={isPendingLike}
-                    isPendingUnlike={isPendingUnlike}
-                    onLike={onLike}
-                    onUnlike={onUnlike}
-                />
+                </div>
             </div>
         </div>
     );

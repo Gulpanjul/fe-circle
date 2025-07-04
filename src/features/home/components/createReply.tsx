@@ -14,7 +14,7 @@ import { useAuthStore } from '@/stores/auth';
 import {
     createReplySchema,
     type CreateReplySchemaDTO,
-} from '@/utils/schemas/reply.schema';
+} from '@/utils/schemas/reply-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';

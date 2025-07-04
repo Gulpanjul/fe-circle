@@ -1,9 +1,9 @@
 import { Loader2, UserSearch } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useDebounce } from 'use-debounce';
-import SearchUserCard from './search-user-card';
+import SearchUserCard from './searchUserCard';
 import { useState } from 'react';
-import type { SearchUser } from '../types/search-user';
+import type { SearchUser } from '../types/searchUser';
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/libs/api';
 

@@ -2,7 +2,7 @@ import type { ProfileEntity } from '@/entities/profile.entity';
 import type { UserEntity } from '@/entities/user.entity';
 import { api } from '@/libs/api';
 import { useAuthStore } from '@/stores/auth';
-import { loginSchema, type LoginSchemaDTO } from '@/utils/schemas/auth.schema';
+import { loginSchema, type LoginSchemaDTO } from '@/utils/schemas/auth-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';

@@ -9,7 +9,7 @@ import {
     InstagramIcon,
     LinkedinIcon,
 } from 'lucide-react';
-import EditProfile from '@/features/profile/components/edit-profile';
+import EditProfile from '@/features/profile/components/editProfile';
 
 export function RightBar() {
     return (

@@ -1,5 +1,5 @@
 // import { ModeToggle } from '@/components/ui/mode-toggle';
-import LoginForm from '../features/auth/components/login-form';
+import LoginForm from '../features/auth/components/loginForm';
 
 export default function LoginPage() {
     return (

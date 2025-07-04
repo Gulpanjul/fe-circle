@@ -1,52 +1,49 @@
 import { api } from '@/libs/api';
 import {
-    resetPasswordSchema,
-    type ResetPasswordSchemaDTO,
-} from '@/utils/schemas/auth.schema';
+    registerSchema,
+    type RegisterSchemaDTO,
+} from '@/utils/schemas/auth-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
-interface ResetPasswordResponse {
+interface RegisterResponse {
     message: string;
     data: {
         id: string;
+        fullName: string;
         email: string;
+        createdAt: Date;
         updateAt: Date;
     };
 }
 
-export function usePasswordForm() {
+export function useRegisterForm() {
     const {
         register,
         handleSubmit,
         formState: { errors },
         reset,
-    } = useForm<ResetPasswordSchemaDTO>({
-        mode: 'all',
-        resolver: zodResolver(resetPasswordSchema),
+    } = useForm<RegisterSchemaDTO>({
+        mode: 'onChange',
+        resolver: zodResolver(registerSchema),
     });
-    const [searchParams] = useSearchParams();
+
     const navigate = useNavigate();
-    const token = searchParams.get('token');
 
     const { isPending, mutateAsync } = useMutation<
-        ResetPasswordResponse,
+        RegisterResponse,
         Error,
-        ResetPasswordSchemaDTO
+        RegisterSchemaDTO
     >({
-        mutationKey: ['reset-password'],
-        mutationFn: async ({
-            oldPassword,
-            newPassword,
-        }: ResetPasswordSchemaDTO) => {
-            const response = await api.post(
-                '/auth/reset-password',
-                { oldPassword, newPassword },
-                { headers: { Authorization: `Bearer ${token}` } },
+        mutationKey: ['register'],
+        mutationFn: async (data: RegisterSchemaDTO) => {
+            const response = await api.post<RegisterResponse>(
+                '/auth/register',
+                data,
             );
             return response.data;
         },
@@ -62,16 +59,24 @@ export function usePasswordForm() {
         },
     });
 
-    async function onSubmit(data: ResetPasswordSchemaDTO) {
-        await mutateAsync(data);
-        reset();
+    async function onSubmit(data: RegisterSchemaDTO) {
+        try {
+            await mutateAsync(data);
+            reset();
+        } catch (error) {
+            if (isAxiosError(error)) {
+                toast.error(error.response?.data.message);
+            } else {
+                toast.error('Something went wrong!');
+            }
+        }
     }
 
     return {
-        register,
         onSubmit,
         isPending,
         handleSubmit,
+        register,
         errors,
     };
 }

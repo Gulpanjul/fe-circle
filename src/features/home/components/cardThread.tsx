@@ -4,13 +4,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type {
     CreateLikeSchemaDTO,
     DeleteLikeSchemaDTO,
-} from '@/utils/schemas/like.schema';
+} from '@/utils/schemas/like-schema';
 import { api } from '@/libs/api';
 import { toast } from 'sonner';
 import { isAxiosError } from 'axios';
 import type { LikeResponse } from '@/features/like/dto/like';
 import type { Thread } from '@/features/thread/types/thread';
-import ThreadActions from '@/features/thread-detail/components/thread-actions';
+import ThreadActions from '@/features/thread-detail/components/threadActions';
 
 export default function Cardpost(thread: Thread) {
     const navigate = useNavigate();

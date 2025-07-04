@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import {
     createThreadSchema,
     type createThreadSchemaDTO,
-} from '@/utils/schemas/thread.schema';
+} from '@/utils/schemas/thread-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 import { api } from '@/libs/api';

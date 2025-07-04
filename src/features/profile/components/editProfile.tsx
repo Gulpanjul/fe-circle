@@ -15,7 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Pencil } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { editProfileSchema } from '@/utils/schemas/profile.schema';
+import { editProfileSchema } from '@/utils/schemas/profile-schema';
 import { useForm } from 'react-hook-form';
 
 export default function EditProfile() {

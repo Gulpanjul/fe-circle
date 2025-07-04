@@ -2,7 +2,7 @@ import { api } from '@/libs/api';
 import {
     forgotPasswordSchema,
     type ForgotPasswordSchemaDTO,
-} from '@/utils/schemas/auth.schema';
+} from '@/utils/schemas/auth-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { isAxiosError, type AxiosError } from 'axios';
