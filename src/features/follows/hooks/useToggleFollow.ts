@@ -16,7 +16,7 @@ export function useToggleFollow(initialState: boolean, followedId: string) {
         },
         onSuccess: () => {
             setIsFollowed((prev) => !prev);
-            queryClient.invalidateQueries(); // atau targetkan query spesifik jika ada
+            queryClient.invalidateQueries();
         },
         onError: (error) => {
             console.error('Failed to toggle follow:', error);

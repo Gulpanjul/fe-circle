@@ -1,5 +1,4 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuthStore } from '@/stores/auth';
 import Banner from '@/assets/Banner.png';
@@ -10,6 +9,7 @@ import {
     LinkedinIcon,
 } from 'lucide-react';
 import EditProfile from '@/features/profile/components/editProfile';
+import { Suggestions } from './Suggestion';
 
 export function RightBar() {
     return (
@@ -95,37 +95,37 @@ function Profile() {
     );
 }
 
-function Suggestions() {
-    return (
-        <Card className="bg-secondary">
-            <CardHeader>
-                <CardTitle className="text-2xl">Suggested for you</CardTitle>
-            </CardHeader>
-            <CardContent>
-                <div className="flex flex-col gap-3">
-                    <div className="flex justify-between">
-                        <div className="flex items-center gap-2">
-                            <Avatar className="w-10 h-10">
-                                <AvatarImage
-                                    src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80"
-                                    alt="Avatar"
-                                />
-                                <AvatarFallback>A</AvatarFallback>
-                            </Avatar>
-                            <div className="flex flex-col">
-                                <p className="font-bold">John Doe</p>
-                                <p className="text-muted-foreground">
-                                    @johndoe
-                                </p>
-                            </div>
-                        </div>
-                        <Button>Follow</Button>
-                    </div>
-                </div>
-            </CardContent>
-        </Card>
-    );
-}
+// function Suggestions() {
+//     return (
+//         <Card className="bg-secondary">
+//             <CardHeader>
+//                 <CardTitle className="text-2xl">Suggested for you</CardTitle>
+//             </CardHeader>
+//             <CardContent>
+//                 <div className="flex flex-col gap-3">
+//                     <div className="flex justify-between">
+//                         <div className="flex items-center gap-2">
+//                             <Avatar className="w-10 h-10">
+//                                 <AvatarImage
+//                                     src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=76&q=80"
+//                                     alt="Avatar"
+//                                 />
+//                                 <AvatarFallback>A</AvatarFallback>
+//                             </Avatar>
+//                             <div className="flex flex-col">
+//                                 <p className="font-bold">John Doe</p>
+//                                 <p className="text-muted-foreground">
+//                                     @johndoe
+//                                 </p>
+//                             </div>
+//                         </div>
+//                         <Button>Follow</Button>
+//                     </div>
+//                 </div>
+//             </CardContent>
+//         </Card>
+//     );
+// }
 
 function Meta() {
     return (
