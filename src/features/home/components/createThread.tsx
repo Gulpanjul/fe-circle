@@ -102,7 +102,7 @@ export default function CreateThread() {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <div className="flex gap-4 border-b py-4">
+                <div className="flex gap-4 border-b p-4">
                     <Avatar className="w-[50px] h-[50px]">
                         <AvatarImage src={avatarUrl || ''} alt={fullName} />
                         <AvatarFallback>{fullName.charAt(0)}</AvatarFallback>

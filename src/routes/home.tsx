@@ -2,9 +2,9 @@ import Home from '@/features/home/components/home';
 
 export default function HomePage() {
     return (
-        <div className="p-4">
-            <p className="text-2xl font-medium">Home</p>
+        <>
+            <p className="text-2xl font-medium pl-4">Home</p>
             <Home />
-        </div>
+        </>
     );
 }

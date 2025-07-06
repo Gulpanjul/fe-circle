@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type {
     CreateLikeSchemaDTO,
@@ -74,52 +74,59 @@ export default function Cardpost(thread: Thread) {
     }
 
     return (
-        <div className="flex gap-4 border-b py-4">
-            <Avatar className="w-[50px] h-[50px]">
-                <AvatarImage
-                    src={thread.user?.profile?.avatarUrl || ''}
-                    alt={thread.user?.profile?.fullName || ''}
-                />
-                <AvatarFallback>
-                    {thread.user?.profile?.fullName.slice(0, 2).toUpperCase()}
-                </AvatarFallback>
-            </Avatar>
-
-            <div className="flex flex-col gap-1">
-                <div className="flex gap-1 text-sm">
-                    <span className="font-bold">
-                        {thread.user?.profile?.fullName}
-                    </span>
-                    <span className="text-muted-foreground">
-                        @{thread.user?.username}
-                    </span>
-                    <span className="text-muted-foreground">•</span>
-                    <span className="text-muted-foreground">
-                        {new Date(thread.createdAt).getHours()}h
-                    </span>
-                </div>
-
-                <button
-                    className="cursor-pointer bg-transparent border-none p-0 text-left"
-                    onClick={onClickCard}
-                >
-                    {thread.content}
-                </button>
-                {thread.images && (
-                    <img
-                        className="object-contain max-h-75 max-w-75"
-                        src={thread.images}
-                        alt="thread images"
+        <div className="border-b">
+            <div className="flex gap-4 p-4">
+                <Avatar className="w-[50px] h-[50px]">
+                    <AvatarImage
+                        src={thread.user?.profile?.avatarUrl || ''}
+                        alt={thread.user?.profile?.fullName || ''}
                     />
-                )}
+                    <AvatarFallback>
+                        {thread.user?.profile?.fullName
+                            .slice(0, 2)
+                            .toUpperCase()}
+                    </AvatarFallback>
+                </Avatar>
 
-                <ThreadActions
-                    thread={thread}
-                    isPendingLike={isPendingLike}
-                    isPendingUnlike={isPendingUnlike}
-                    onLike={onLike}
-                    onUnlike={onUnlike}
-                />
+                <div className="flex flex-col gap-1">
+                    <div className="flex gap-1 text-sm">
+                        <Link
+                            className="font-bold"
+                            to={`/${thread.user?.username}`}
+                        >
+                            {thread.user?.profile?.fullName}
+                        </Link>
+                        <span className="text-muted-foreground">
+                            @{thread.user?.username}
+                        </span>
+                        <span className="text-muted-foreground">•</span>
+                        <span className="text-muted-foreground">
+                            {new Date(thread.createdAt).getHours()}h
+                        </span>
+                    </div>
+
+                    <button
+                        className="cursor-pointer bg-transparent border-none p-0 text-left"
+                        onClick={onClickCard}
+                    >
+                        {thread.content}
+                    </button>
+                    {thread.images && (
+                        <img
+                            className="object-contain max-h-75 max-w-75"
+                            src={thread.images}
+                            alt="thread images"
+                        />
+                    )}
+
+                    <ThreadActions
+                        thread={thread}
+                        isPendingLike={isPendingLike}
+                        isPendingUnlike={isPendingUnlike}
+                        onLike={onLike}
+                        onUnlike={onUnlike}
+                    />
+                </div>
             </div>
         </div>
     );
