@@ -1,40 +1,46 @@
-import type { Thread } from '@/features/thread/types/thread';
-import { api } from '@/libs/api';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import { api } from '@/libs/api';
+import type { Thread } from '@/features/thread/types/thread';
 
 export function useUserProfile() {
     const { username } = useParams<{ username: string }>();
 
+    // Query untuk data user lengkap (termasuk followers, followings, dll)
     const {
         data: user,
-        refetch,
         isLoading: isUserLoading,
+        refetch: refetchUser,
     } = useQuery({
         queryKey: ['user-profile', username],
         queryFn: async () => {
-            const response = await api.get(`/users/username/${username}`);
-            return response.data.data;
+            const res = await api.get(`/users/username/${username}`);
+            return res.data.data;
         },
         enabled: !!username,
     });
 
-    const { data: userPosts = [], isLoading: isPostsLoading } = useQuery<
-        Thread[]
-    >({
-        queryKey: ['user-posts', username],
+    const {
+        data: userPosts = [],
+        isLoading: isPostsLoading,
+        refetch: refetchPosts,
+    } = useQuery<Thread[]>({
+        queryKey: ['user-posts', user?.id],
         queryFn: async () => {
-            const response = await api.get(`/threads/user/${user?.id}`);
-            return response.data.data;
+            const res = await api.get(`/threads/users/${user?.id}`);
+            return res.data.data;
         },
         enabled: !!user?.id,
     });
+    const refetchAll = async () => {
+        await Promise.all([refetchUser(), refetchPosts()]);
+    };
 
     return {
         user,
         userPosts,
         isUserLoading,
         isPostsLoading,
-        refetch,
+        refetch: refetchAll,
     };
 }
