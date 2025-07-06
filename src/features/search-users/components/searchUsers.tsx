@@ -16,14 +16,15 @@ export default function SearchUsers() {
     }
 
     const { data, isLoading } = useQuery({
-        queryKey: ['search-users'],
+        queryKey: ['search-users', searchTextDebounced],
         queryFn: async () => {
             const response = await api.get(
                 `/users/search?q=${searchTextDebounced}`,
             );
             return response.data;
         },
-        enabled: !!searchTextDebounced.trim(),
+        enabled: searchTextDebounced.trim().length > 0,
+        staleTime: 1000 * 30,
     });
 
     const users = data?.data ?? [];
