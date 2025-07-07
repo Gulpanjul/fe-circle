@@ -54,7 +54,7 @@ export default function AppLayout() {
                 </div>
 
                 {/* Main Content (Thread/Post/Outlet) */}
-                <div className="flex-[2] min-w-0 border-x outline pt-10">
+                <div className="flex-[2] min-w-0 border-x pt-10">
                     <Outlet />
                 </div>
 

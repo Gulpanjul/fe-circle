@@ -1,6 +1,6 @@
 // components/suggested-following.tsx
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import type { SearchUser } from '@/features/search-users/types/searchUser';
+import type { SearchUser } from '@/features/search/types/searchUser';
 import { useToggleFollow } from '../hooks/useToggleFollow';
 import { FollowToggleButton } from './followToggleButton';
 

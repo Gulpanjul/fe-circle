@@ -13,7 +13,7 @@ const BasePage = lazy(() => import('@/pages/base'));
 const FollowsPage = lazy(() => import('./follows'));
 const ProfilePage = lazy(() => import('./profile'));
 const DetailPostPage = lazy(() => import('@/pages/detailPost'));
-const SearchUsersPage = lazy(() => import('./searchUsers'));
+const SearchPage = lazy(() => import('@/pages/search'));
 const UserProfilePage = lazy(() => import('./userProfile'));
 
 // ⬇️ Bungkus dengan Suspense
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/search',
-                element: withSuspense(<SearchUsersPage />),
+                element: withSuspense(<SearchPage />),
             },
             {
                 path: '/follows',

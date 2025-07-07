@@ -1,4 +1,4 @@
-import SearchUsers from '@/features/search-users/components/searchUsers';
+import SearchUsers from '@/features/search/components/Search';
 
 export default function SearchUsersPage() {
     return (

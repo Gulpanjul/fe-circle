@@ -1,7 +1,7 @@
 // hooks/use-suggested-users.ts
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/libs/api';
-import type { SearchUser } from '@/features/search-users/types/searchUser';
+import type { SearchUser } from '@/features/search/types/searchUser';
 
 export function useSuggestedUsers() {
     return useQuery<SearchUser[]>({

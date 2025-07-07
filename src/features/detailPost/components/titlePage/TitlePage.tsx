@@ -10,7 +10,7 @@ function TitlePage() {
     }
 
     return (
-        <div className="flex items-center gap-2 pl-4">
+        <div className="flex items-center gap-2 px-4">
             <Button
                 onClick={onBack}
                 variant="ghost"

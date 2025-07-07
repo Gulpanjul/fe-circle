@@ -1,16 +1,13 @@
-import { type SearchUser } from '../types/searchUser';
+import { type SearchUser } from '../../types/searchUser';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { FollowToggleButton } from '@/features/follows/components/followToggleButton';
 import { useToggleFollow } from '@/features/follows/hooks/useToggleFollow';
 
-interface SearchUserCardProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ItemPostProps extends React.HTMLAttributes<HTMLDivElement> {
     searchUserData: SearchUser;
 }
 
-export default function SearchUserCard({
-    searchUserData,
-    ...props
-}: SearchUserCardProps) {
+function ItemPost({ searchUserData, ...props }: ItemPostProps) {
     const {
         id,
         username,
@@ -48,3 +45,5 @@ export default function SearchUserCard({
         </div>
     );
 }
+
+export default ItemPost;
