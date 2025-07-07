@@ -1,18 +1,25 @@
 import { createBrowserRouter } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 
 import AuthLayout from '@/components/layouts/authLayout';
 import AppLayout from '@/components/layouts/appLayout';
 
-import HomePage from './home';
-import FollowsPage from './follows';
-import ProfilePage from './profile';
-import RegisterPage from './register';
-import LoginPage from './login';
-import ForgotPasswordPage from './forgot-password';
-import ResetPasswordPage from './resetPassword';
-import ThreadDetailPage from './threadDetail';
-import SearchUsersPage from './searchUsers';
-import UserProfilePage from './userProfile';
+// ⬇️ Lazy load semua halaman
+const HomePage = lazy(() => import('./home'));
+const FollowsPage = lazy(() => import('./follows'));
+const ProfilePage = lazy(() => import('./profile'));
+const RegisterPage = lazy(() => import('./register'));
+const LoginPage = lazy(() => import('./login'));
+const ForgotPasswordPage = lazy(() => import('./forgot-password'));
+const ResetPasswordPage = lazy(() => import('./resetPassword'));
+const ThreadDetailPage = lazy(() => import('./threadDetail'));
+const SearchUsersPage = lazy(() => import('./searchUsers'));
+const UserProfilePage = lazy(() => import('./userProfile'));
+
+// ⬇️ Bungkus dengan Suspense
+function withSuspense(element: React.ReactNode) {
+    return <Suspense fallback={<div>Loading...</div>}>{element}</Suspense>;
+}
 
 const router = createBrowserRouter([
     {
@@ -20,27 +27,27 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <HomePage />,
+                element: withSuspense(<HomePage />),
             },
             {
                 path: '/search',
-                element: <SearchUsersPage />,
+                element: withSuspense(<SearchUsersPage />),
             },
             {
                 path: '/follows',
-                element: <FollowsPage />,
+                element: withSuspense(<FollowsPage />),
             },
             {
                 path: '/profile',
-                element: <ProfilePage />,
+                element: withSuspense(<ProfilePage />),
             },
             {
                 path: '/detail/:threadId',
-                element: <ThreadDetailPage />,
+                element: withSuspense(<ThreadDetailPage />),
             },
             {
                 path: '/:username',
-                element: <UserProfilePage />,
+                element: withSuspense(<UserProfilePage />),
             },
         ],
     },
@@ -49,19 +56,19 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/login',
-                element: <LoginPage />,
+                element: withSuspense(<LoginPage />),
             },
             {
                 path: '/register',
-                element: <RegisterPage />,
+                element: withSuspense(<RegisterPage />),
             },
             {
                 path: '/forgot-password',
-                element: <ForgotPasswordPage />,
+                element: withSuspense(<ForgotPasswordPage />),
             },
             {
                 path: '/reset-password',
-                element: <ResetPasswordPage />,
+                element: withSuspense(<ResetPasswordPage />),
             },
         ],
     },

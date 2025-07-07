@@ -1,11 +1,13 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuthStore } from '@/stores/auth';
-import { LeftBar } from './components/LeftBar';
-import { RightBar } from './components/RightBar';
-import { useQuery } from '@tanstack/react-query';
 import Cookies from 'js-cookie';
+
+import { useQuery } from '@tanstack/react-query';
+import { useAuthStore } from '@/stores/auth';
 import { api } from '@/libs/api';
-import { IconOnlyLeftBar } from './components/IconOnlyLeftBar';
+
+import SidebarRight from './components/sidebarRight';
+import SidebarLeft from './components/sidebarLeft';
+import SidebarLeftIconOnly from './components/sidebarLeftIconOnly/SidebarLeftIconOnly';
 
 export default function AppLayout() {
     const { user, setUser, logout } = useAuthStore();
@@ -44,10 +46,10 @@ export default function AppLayout() {
                 <div>
                     {/* Show full LeftBar on xl+, IconOnlyLeftBar on smaller screens */}
                     <div className="hidden xl:block w-[280px] h-screen sticky top-0">
-                        <LeftBar />
+                        <SidebarLeft />
                     </div>
                     <div className="block xl:hidden p-4 h-screen sticky top-0">
-                        <IconOnlyLeftBar />
+                        <SidebarLeftIconOnly />
                     </div>
                 </div>
 
@@ -58,7 +60,7 @@ export default function AppLayout() {
 
                 {/* Right Sidebar */}
                 <div className="hidden lg:block flex-[1] p-6 sm:p-8 md:p-10 w-[320px] xl:w-[360px] 2xl:w-[400px]">
-                    <RightBar />
+                    <SidebarRight />
                 </div>
             </div>
         );

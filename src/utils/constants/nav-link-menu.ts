@@ -10,7 +10,7 @@ import {
     RiUserSearchLine,
 } from 'react-icons/ri';
 
-interface NavLinkMenu {
+export interface NavLinkMenu {
     label: string;
     path: string;
     logo: {

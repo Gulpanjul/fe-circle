@@ -1,9 +1,8 @@
-// components/suggestions.tsx
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { SuggestedFollowing } from '@/features/follows/components/suggestedFollowing';
 import { useSuggestedUsers } from '@/features/follows/hooks/useSuggestedUsers';
 
-export function Suggestions() {
+function SuggestionsPeople() {
     const { data, isLoading } = useSuggestedUsers();
     const suggestedUsers = data ?? [];
 
@@ -39,3 +38,5 @@ export function Suggestions() {
         </Card>
     );
 }
+
+export default SuggestionsPeople;
