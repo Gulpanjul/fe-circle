@@ -31,7 +31,9 @@ export function useCreateReply(
             toast.error('Something went wrong!');
         },
         onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey: ['thread'] });
+            await queryClient.invalidateQueries({
+                queryKey: [`threads/${threadId}`],
+            });
             reset();
         },
     });
