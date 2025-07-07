@@ -1,12 +1,10 @@
 import brandLogo from '@/assets/Logo.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useForgotPasswordForm } from '../hooks/useForgotPasswordForm';
+import { useForgotPasswordForm } from '../../hooks/useForgotPasswordForm';
 import { Loader2 } from 'lucide-react';
 
-export default function ForgotPasswordForm(
-    props: React.HTMLAttributes<HTMLDivElement>,
-) {
+function ForgotPassword(props: React.HTMLAttributes<HTMLDivElement>) {
     const { errors, handleSubmit, isPending, onSubmit, register } =
         useForgotPasswordForm();
 
@@ -42,3 +40,5 @@ export default function ForgotPasswordForm(
         </div>
     );
 }
+
+export default ForgotPassword;

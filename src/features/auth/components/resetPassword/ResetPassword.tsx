@@ -1,12 +1,10 @@
 import brandLogo from '@/assets/Logo.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { usePasswordForm } from '../hooks/usePasswordForm';
+import { usePasswordForm } from '../../hooks/usePasswordForm';
 import { Loader2 } from 'lucide-react';
 
-export default function ResetPasswordForm(
-    props: React.HTMLAttributes<HTMLDivElement>,
-) {
+function ResetPassword(props: React.HTMLAttributes<HTMLDivElement>) {
     const { errors, handleSubmit, register, isPending, onSubmit } =
         usePasswordForm();
 
@@ -56,3 +54,5 @@ export default function ResetPasswordForm(
         </div>
     );
 }
+
+export default ResetPassword;

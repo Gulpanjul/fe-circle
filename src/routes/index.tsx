@@ -5,13 +5,13 @@ import AuthLayout from '@/components/layouts/authLayout';
 import AppLayout from '@/components/layouts/appLayout';
 
 // ⬇️ Lazy load semua halaman
+const ForgotPasswordPage = lazy(() => import('@/pages/auth/forgotPassword'));
+const LoginPage = lazy(() => import('@/pages/auth/login'));
+const RegisterPage = lazy(() => import('@/pages/auth/register'));
+const ResetPasswordPage = lazy(() => import('@/pages/auth/resetPassword'));
 const BasePage = lazy(() => import('@/pages/base'));
 const FollowsPage = lazy(() => import('./follows'));
 const ProfilePage = lazy(() => import('./profile'));
-const RegisterPage = lazy(() => import('./register'));
-const LoginPage = lazy(() => import('./login'));
-const ForgotPasswordPage = lazy(() => import('./forgot-password'));
-const ResetPasswordPage = lazy(() => import('./resetPassword'));
 const ThreadDetailPage = lazy(() => import('./threadDetail'));
 const SearchUsersPage = lazy(() => import('./searchUsers'));
 const UserProfilePage = lazy(() => import('./userProfile'));
