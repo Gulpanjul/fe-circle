@@ -5,7 +5,7 @@ import AuthLayout from '@/components/layouts/authLayout';
 import AppLayout from '@/components/layouts/appLayout';
 
 // ⬇️ Lazy load semua halaman
-const HomePage = lazy(() => import('./home'));
+const BasePage = lazy(() => import('@/pages/base'));
 const FollowsPage = lazy(() => import('./follows'));
 const ProfilePage = lazy(() => import('./profile'));
 const RegisterPage = lazy(() => import('./register'));
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: withSuspense(<HomePage />),
+                element: withSuspense(<BasePage />),
             },
             {
                 path: '/search',
