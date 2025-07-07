@@ -5,7 +5,7 @@ import type { ReplyEntity } from '@/entities/reply.entity';
 
 export default function CardReply(reply: ReplyEntity) {
     return (
-        <div className="flex gap-4 border-b py-7.5">
+        <div className="flex gap-4 border-b p-4">
             <Avatar className="w-[50px] h-[50px]">
                 <AvatarImage
                     src={reply.user?.profile?.avatarUrl || ''}

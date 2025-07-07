@@ -12,7 +12,7 @@ const ResetPasswordPage = lazy(() => import('@/pages/auth/resetPassword'));
 const BasePage = lazy(() => import('@/pages/base'));
 const FollowsPage = lazy(() => import('./follows'));
 const ProfilePage = lazy(() => import('./profile'));
-const ThreadDetailPage = lazy(() => import('./threadDetail'));
+const DetailPostPage = lazy(() => import('@/pages/detailPost'));
 const SearchUsersPage = lazy(() => import('./searchUsers'));
 const UserProfilePage = lazy(() => import('./userProfile'));
 
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/detail/:threadId',
-                element: withSuspense(<ThreadDetailPage />),
+                element: withSuspense(<DetailPostPage />),
             },
             {
                 path: '/:username',

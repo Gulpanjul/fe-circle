@@ -8,6 +8,8 @@ export interface ReplyEntity {
 
     thread?: ThreadEntity;
     user?: UserEntity;
+    likesCount: number;
+    isLiked: boolean;
 
     createdAt: Date;
     updatedAt: Date;

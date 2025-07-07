@@ -26,7 +26,7 @@ export default function ThreadActions({
         <div className="flex gap-2">
             <Button
                 variant="ghost"
-                className="flex gap-1 p-0 h-auto text-muted-foreground"
+                className="flex gap-1 p-0 h-auto text-muted-foreground hover:bg-0 dark:hover:bg-0"
                 disabled={isPendingLike || isPendingUnlike}
                 onClick={() =>
                     thread.isLiked
@@ -44,15 +44,14 @@ export default function ThreadActions({
 
             <Button
                 variant="ghost"
-                className="flex gap-1 p-0 h-auto text-muted-foreground"
+                className="flex gap-1 text-muted-foreground hover:bg-0 dark:hover:bg-0"
             >
                 {thread.repliesCount > 0 ? (
-                    <RiMessage2Fill className="w-[20px] h-[20px] text-muted-foreground" />
+                    <RiMessage2Fill className="w-[20px] h-[20px]" />
                 ) : (
                     <RiMessage2Line className="w-[20px] h-[20px]" />
                 )}
-                <span>{thread.repliesCount}</span>
-                <span>Replies</span>
+                <span>{thread.repliesCount} Replies</span>
             </Button>
         </div>
     );

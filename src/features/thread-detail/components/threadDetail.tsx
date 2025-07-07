@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 
-export default function PostDetail() {
+export default function ThreadDetail() {
     const { threadId } = useParams();
 
     const { data, isLoading } = useQuery<Thread>({
