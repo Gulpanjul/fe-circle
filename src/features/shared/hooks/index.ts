@@ -1,0 +1,1 @@
+export { usePostLike } from './usePostLike';

@@ -56,10 +56,13 @@ export function usePostLike(threadId: string | undefined) {
             },
         });
 
+    const onLike = async (data: CreateLikeSchemaDTO) => mutateLike(data);
+    const onUnlike = async (data: DeleteLikeSchemaDTO) => mutateUnlike(data);
+
     return {
         isPendingLike,
         isPendingUnlike,
-        mutateLike,
-        mutateUnlike,
+        onLike,
+        onUnlike,
     };
 }

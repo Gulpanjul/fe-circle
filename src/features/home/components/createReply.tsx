@@ -7,7 +7,7 @@ import {
     DialogTrigger,
 } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
-import type { ReplyResponse } from '@/features/reply/dto/reply';
+import type { ReplyResponse } from '@/features/detailPost/dto/reply';
 import { api } from '@/libs/api';
 import { cn } from '@/libs/utils';
 import { useAuthStore } from '@/stores/auth';

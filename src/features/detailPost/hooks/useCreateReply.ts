@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { isAxiosError } from 'axios';
 import { toast } from 'sonner';
 import { api } from '@/libs/api';
-import type { ReplyResponse } from '@/features/reply/dto/reply';
+import type { ReplyResponse } from '@/features/detailPost/dto/reply';
 import type { CreateReplySchemaDTO } from '@/utils/schemas/reply-schema';
 
 export function useCreateReply(
