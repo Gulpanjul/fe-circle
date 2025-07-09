@@ -11,7 +11,7 @@ import type { LikeResponse } from '@/features/like/dto/like';
 import { isAxiosError } from 'axios';
 import { toast } from 'sonner';
 import type { Thread } from '@/features/thread/types/thread';
-import ThreadActions from '@/features/thread-detail/components/threadActions';
+import ThreadActions from '@/features/shared/components/PostActions/PostActions';
 
 export default function CardThreadDetail({ thread }: { thread: Thread }) {
     const { threadId } = useParams();

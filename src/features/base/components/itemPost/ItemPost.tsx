@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import ThreadActions from '@/features/thread-detail/components/threadActions';
-import CardItemPost from '@/features/shared/components/cardItemPost';
+import ThreadActions from '@/features/shared/components/PostActions/PostActions';
+import CardItemPost from '@/features/shared/components/CardItemPost';
 import type { Thread } from '@/features/thread/types/thread';
 import { usePostLike } from '@/features/detailPost/hooks';
 

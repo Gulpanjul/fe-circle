@@ -9,7 +9,7 @@ import { toast } from 'sonner';
 import { isAxiosError } from 'axios';
 import { api } from '@/libs/api';
 import type { LikeResponse } from '@/features/like/dto/like';
-import ThreadActions from '@/features/thread-detail/components/threadActions';
+import ThreadActions from '@/features/shared/components/PostActions/PostActions';
 import type { Thread } from '@/features/thread/types/thread';
 
 export default function CardThreadProfile(thread: Thread) {

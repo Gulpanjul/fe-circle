@@ -1,5 +1,5 @@
 import type { ReplyEntity } from '@/entities/reply.entity';
-import CardItemPost from '@/features/shared/components/cardItemPost';
+import CardItemPost from '@/features/shared/components/CardItemPost';
 
 export default function ItemPost(reply: ReplyEntity) {
     return (

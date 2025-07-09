@@ -10,7 +10,7 @@ import { toast } from 'sonner';
 import { isAxiosError } from 'axios';
 import type { LikeResponse } from '@/features/like/dto/like';
 import type { Thread } from '@/features/thread/types/thread';
-import ThreadActions from '@/features/thread-detail/components/threadActions';
+import ThreadActions from '@/features/shared/components/PostActions/PostActions';
 
 export default function Cardpost(thread: Thread) {
     const navigate = useNavigate();

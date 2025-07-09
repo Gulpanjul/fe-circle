@@ -1,1 +1,1 @@
-export { default } from '@/features/shared/components/titlePage';
+export { default } from '@/features/shared/components/TitlePage';

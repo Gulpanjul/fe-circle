@@ -8,7 +8,7 @@ import type {
     DeleteLikeSchemaDTO,
 } from '@/utils/schemas/like-schema';
 
-export function usePostLike(threadId: string | undefined) {
+function usePostLike(threadId: string | undefined) {
     const queryClient = useQueryClient();
 
     const { isPending: isPendingLike, mutateAsync: mutateLike } = useMutation<
@@ -72,3 +72,5 @@ export function usePostLike(threadId: string | undefined) {
         onUnlike,
     };
 }
+
+export default usePostLike;

@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { usePostLike } from '../../hooks';
-import ThreadActions from '@/features/thread-detail/components/threadActions';
+import ThreadActions from '@/features/shared/components/PostActions/PostActions';
 import type { Thread } from '@/features/thread/types/thread';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { formatDate } from '@/utils/format-date';
