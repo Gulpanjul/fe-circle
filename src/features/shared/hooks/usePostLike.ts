@@ -28,9 +28,12 @@ export function usePostLike(threadId: string | undefined) {
             toast.error('Something went wrong!');
         },
         onSuccess: async () => {
-            await queryClient.invalidateQueries({
-                queryKey: [`threads/${threadId}`],
-            });
+            await Promise.all([
+                queryClient.invalidateQueries({
+                    queryKey: ['thread', threadId],
+                }), // detail
+                queryClient.invalidateQueries({ queryKey: ['threads'] }), // list
+            ]);
         },
     });
 
@@ -50,9 +53,12 @@ export function usePostLike(threadId: string | undefined) {
                 toast.error('Something went wrong!');
             },
             onSuccess: async () => {
-                await queryClient.invalidateQueries({
-                    queryKey: [`threads/${threadId}`],
-                });
+                await Promise.all([
+                    queryClient.invalidateQueries({
+                        queryKey: ['thread', threadId],
+                    }), // detail
+                    queryClient.invalidateQueries({ queryKey: ['threads'] }), // list
+                ]);
             },
         });
 

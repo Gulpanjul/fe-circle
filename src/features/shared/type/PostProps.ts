@@ -7,6 +7,7 @@ export type PostProps = {
     images?: string;
     likesCount?: number;
     isReply?: boolean;
+    isPostDetail?: boolean;
     onClickContent?: () => void;
     onLikeClick?: () => void;
     isLikeLoading?: boolean;

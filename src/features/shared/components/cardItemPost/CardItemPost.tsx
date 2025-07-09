@@ -2,7 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import type { PostProps } from '../type/PostProps';
+import type { PostProps } from '../../type/PostProps';
 
 export default function CardThreadBase({
     avatarUrl,

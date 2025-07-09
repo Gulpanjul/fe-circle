@@ -91,9 +91,9 @@ export default function CardThreadProfile(thread: Thread) {
 
                 <div className="flex flex-col gap-1">
                     <div className="flex gap-1 text-sm">
-                        <span className="font-bold">
+                        <p className="font-bold">
                             {thread.user?.profile?.fullName}
-                        </span>
+                        </p>
                         <span className="text-muted-foreground">
                             @{thread.user?.username}
                         </span>
