@@ -1,13 +1,14 @@
-import { NAV_LINK_MENU } from '@/utils/constants/nav-link-menu';
+import { useNavLinkMenu } from '@/utils/constants/nav-link-menu';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/libs/utils';
 
 function ListMenu() {
     const { pathname } = useLocation();
+    const navLinks = useNavLinkMenu();
 
     return (
         <div className="flex flex-col gap-6 items-center">
-            {NAV_LINK_MENU.map(({ label, logo, path }, index) => {
+            {navLinks.map(({ label, logo, path }, index) => {
                 const isActive = pathname === path;
                 const Icon = isActive ? logo.fill : logo.outline;
 

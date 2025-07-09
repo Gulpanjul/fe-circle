@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import ThreadActions from '@/features/thread-detail/components/threadActions';
-import CardItemPost from '@/features/shared/cardItemPost';
+import CardItemPost from '@/features/shared/components/cardItemPost';
 import type { Thread } from '@/features/thread/types/thread';
 import { usePostLike } from '@/features/detailPost/hooks';
 
-export default function CardPost(thread: Thread) {
+export default function ItemPost(thread: Thread) {
     const navigate = useNavigate();
     const onClickCard = () => navigate(`/detail/${thread.id}`);
 
