@@ -16,7 +16,11 @@ export function useToggleFollow(initialState: boolean, followedId: string) {
         },
         onSuccess: () => {
             setIsFollowed((prev) => !prev);
-            queryClient.invalidateQueries();
+            queryClient.invalidateQueries({ queryKey: ['user-profile'] });
+            queryClient.invalidateQueries({ queryKey: ['user-posts'] });
+            queryClient.invalidateQueries({ queryKey: ['suggested-users'] });
+            queryClient.invalidateQueries({ queryKey: ['followers'] });
+            queryClient.invalidateQueries({ queryKey: ['followings'] });
         },
         onError: (error) => {
             console.error('Failed to toggle follow:', error);

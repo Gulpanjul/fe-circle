@@ -13,9 +13,12 @@ export function FollowToggleButton({
 }: FollowToggleButtonProps) {
     return (
         <Button
+            variant="ghost"
             onClick={onClick}
             disabled={isLoading}
-            className="px-3 py-1 text-sm border rounded-md text-muted-foreground hover:bg-accent"
+            className={`px-3 py-1 text-sm border rounded-full hover:bg-accent w-20
+        ${isFollowed ? 'text-muted-foreground' : 'text-white ring-1 ring-white '}
+    `}
         >
             {isLoading ? '...' : isFollowed ? 'Unfollow' : 'Follow'}
         </Button>

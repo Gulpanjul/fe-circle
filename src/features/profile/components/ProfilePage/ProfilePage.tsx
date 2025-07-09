@@ -6,16 +6,16 @@ import Banner from '@/assets/Banner.png';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/libs/utils';
 import ItemPost from '../ItemPost';
+import { useToggleFollow } from '@/features/follows/hooks/useToggleFollow';
 
 function ProfilePage() {
+    const { user, userPosts, isUserLoading, isOwnProfile } = useProfilePage();
+
     const {
-        user,
-        userPosts,
-        isUserLoading,
-        isPostsLoading,
-        refetch,
-        isOwnProfile,
-    } = useProfilePage();
+        isFollowed: followState,
+        toggleFollow,
+        isLoading,
+    } = useToggleFollow(user.isFollowed, user.id);
 
     if (isUserLoading || !user) {
         return (
@@ -25,8 +25,7 @@ function ProfilePage() {
         );
     }
 
-    const { profile, username, followersCount, followingsCount, isFollowed } =
-        user;
+    const { profile, username, followersCount, followingsCount } = user;
     const { fullName, bio, avatarUrl } = profile ?? {};
 
     return (
@@ -53,9 +52,9 @@ function ProfilePage() {
                         <EditProfile />
                     ) : (
                         <FollowToggleButton
-                            isFollowed={isFollowed}
-                            onClick={refetch}
-                            isLoading={isPostsLoading}
+                            isFollowed={followState}
+                            onClick={toggleFollow}
+                            isLoading={isLoading}
                         />
                     )}
                 </div>

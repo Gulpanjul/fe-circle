@@ -1,4 +1,3 @@
-// components/suggested-following.tsx
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { SearchUser } from '@/features/search/types/searchUser';
 import { useToggleFollow } from '../hooks/useToggleFollow';
@@ -24,7 +23,7 @@ export function SuggestedFollowing({
                 className="flex gap-4 cursor-pointer w-full"
                 onClick={() => goToProfile(user.username)}
             >
-                <Avatar className="w-10 h-10">
+                <Avatar className="w-10 h-10 bg-white">
                     <AvatarImage
                         src={
                             user.profile.avatarUrl ||
@@ -49,7 +48,7 @@ export function SuggestedFollowing({
 
             <FollowToggleButton
                 isFollowed={isFollowed}
-                onClick={() => toggleFollow()}
+                onClick={toggleFollow}
                 isLoading={isLoading}
             />
         </div>
