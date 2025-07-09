@@ -1,7 +1,7 @@
 import type { ReplyEntity } from '@/entities/reply.entity';
-import CardItemPost from '@/features/shared/cardItemPost';
+import CardItemPost from '@/features/shared/components/cardItemPost';
 
-export default function CardReply(reply: ReplyEntity) {
+export default function ItemPost(reply: ReplyEntity) {
     return (
         <CardItemPost
             avatarUrl={reply.user?.profile?.avatarUrl}

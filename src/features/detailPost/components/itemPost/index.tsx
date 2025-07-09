@@ -1,1 +1,1 @@
-export { default } from './itemPost';
+export { default } from './ItemPost';

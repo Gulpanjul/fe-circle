@@ -21,7 +21,7 @@ export default function PostDetail() {
             ) : (
                 data && (
                     <>
-                        <TitlePage />
+                        <TitlePage title="status" />
                         <ItemPostDetail thread={data} />
                         <FormStatusArea />
                         {Array.isArray(data.replies) &&
