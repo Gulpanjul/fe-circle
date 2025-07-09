@@ -1,14 +1,21 @@
-import { useUserProfile } from '../hooks/useUserProfile';
-import { FollowToggleButton } from '@/features/follows/components/followToggleButton';
+import { useProfilePage } from '@/features/profile/hooks/useProfilePage';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import CardThreadProfile from '@/features/home/components/cardThreadProfile';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { FollowToggleButton } from '@/features/follows/components/followToggleButton';
+import EditProfile from '../editProfile';
 import Banner from '@/assets/Banner.png';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/libs/utils';
+import ItemPost from '../ItemPost';
 
-export default function UserProfile() {
-    const { user, userPosts, refetch, isUserLoading, isPostsLoading } =
-        useUserProfile();
+function ProfilePage() {
+    const {
+        user,
+        userPosts,
+        isUserLoading,
+        isPostsLoading,
+        refetch,
+        isOwnProfile,
+    } = useProfilePage();
 
     if (isUserLoading || !user) {
         return (
@@ -21,7 +28,6 @@ export default function UserProfile() {
     const { profile, username, followersCount, followingsCount, isFollowed } =
         user;
     const { fullName, bio, avatarUrl } = profile ?? {};
-    const posts = userPosts;
 
     return (
         <div className="flex flex-col gap-4 py-6">
@@ -42,12 +48,18 @@ export default function UserProfile() {
                         />
                         <AvatarFallback>{fullName?.[0]}</AvatarFallback>
                     </Avatar>
-                    <FollowToggleButton
-                        isFollowed={isFollowed}
-                        onClick={refetch}
-                        isLoading={isPostsLoading}
-                    />
+
+                    {isOwnProfile ? (
+                        <EditProfile />
+                    ) : (
+                        <FollowToggleButton
+                            isFollowed={isFollowed}
+                            onClick={refetch}
+                            isLoading={isPostsLoading}
+                        />
+                    )}
                 </div>
+
                 <div className="flex flex-col gap-1">
                     <p className="text-xl font-bold">✨{fullName}✨</p>
                     <p className="text-muted-foreground text-sm">@{username}</p>
@@ -56,28 +68,28 @@ export default function UserProfile() {
                     <div className="flex gap-4 mt-2 text-sm">
                         <div className="flex gap-1">
                             <span className="font-semibold">
-                                {followersCount ?? 0}
-                            </span>
-                            <span className="text-muted-foreground">
-                                Followers
-                            </span>
-                        </div>
-                        <div className="flex gap-1">
-                            <span className="font-semibold">
                                 {followingsCount ?? 0}
                             </span>
                             <span className="text-muted-foreground">
                                 Following
                             </span>
                         </div>
+                        <div className="flex gap-1">
+                            <span className="font-semibold">
+                                {followersCount ?? 0}
+                            </span>
+                            <span className="text-muted-foreground">
+                                Followers
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <Tabs defaultValue="followers" className="relative w-full ">
+            <Tabs defaultValue="All Post" className="relative w-full ">
                 <TabsList className="w-full bg-background rounded-none p-0 border-b gap-1">
                     <TabsTrigger
-                        value="followers"
+                        value="All Post"
                         className={cn(
                             '!bg-transparent border-0 ml-8',
                             'data-[state=active]:border-brand data-[state=active]:border-b-4',
@@ -88,7 +100,7 @@ export default function UserProfile() {
                         All Post
                     </TabsTrigger>
                     <TabsTrigger
-                        value="following"
+                        value="Media"
                         className={cn(
                             '!bg-transparent border-0 mr-8',
                             'data-[state=active]:border-brand data-[state=active]:border-b-4',
@@ -100,32 +112,20 @@ export default function UserProfile() {
                     </TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="followers">
-                    <div className="text-sm text-muted-foreground">
-                        {(posts ?? []).length > 0 ? (
-                            posts.map((post) => (
-                                <CardThreadProfile
-                                    key={post.id}
-                                    {...post}
-                                    likesCount={post.like?.length ?? 0}
-                                    repliesCount={post.replies?.length ?? 0}
-                                    isLiked={false}
-                                />
-                            ))
-                        ) : (
-                            <p className="text-sm text-muted-foreground">
-                                No posts yet.
-                            </p>
-                        )}
-                    </div>
+                <TabsContent value="All Post">
+                    {userPosts.map((thread) => (
+                        <ItemPost key={thread.id} thread={thread} />
+                    ))}
                 </TabsContent>
 
-                <TabsContent value="following">
+                <TabsContent value="Media">
                     <div className="text-sm text-muted-foreground">
-                        You are not following anyone yet.
+                        Under Construction...
                     </div>
                 </TabsContent>
             </Tabs>
         </div>
     );
 }
+
+export default ProfilePage;

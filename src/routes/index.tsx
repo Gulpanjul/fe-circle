@@ -11,10 +11,9 @@ const RegisterPage = lazy(() => import('@/pages/auth/register'));
 const ResetPasswordPage = lazy(() => import('@/pages/auth/resetPassword'));
 const BasePage = lazy(() => import('@/pages/base'));
 const FollowsPage = lazy(() => import('./follows'));
-const ProfilePage = lazy(() => import('./profile'));
+const ProfilePage = lazy(() => import('@/pages/profile'));
 const DetailPostPage = lazy(() => import('@/pages/detailPost'));
 const SearchPage = lazy(() => import('@/pages/search'));
-const UserProfilePage = lazy(() => import('./userProfile'));
 
 // ⬇️ Bungkus dengan Suspense
 function withSuspense(element: React.ReactNode) {
@@ -38,16 +37,12 @@ const router = createBrowserRouter([
                 element: withSuspense(<FollowsPage />),
             },
             {
-                path: '/profile',
+                path: '/:username',
                 element: withSuspense(<ProfilePage />),
             },
             {
                 path: '/detail/:threadId',
                 element: withSuspense(<DetailPostPage />),
-            },
-            {
-                path: '/:username',
-                element: withSuspense(<UserProfilePage />),
             },
         ],
     },
