@@ -27,7 +27,6 @@ function SuggestionsPeople() {
                                 key={user.id}
                                 user={user}
                                 goToProfile={(username) => {
-                                    // Navigasi ke profil
                                     window.location.href = `/@${username}`;
                                 }}
                             />

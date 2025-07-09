@@ -1,6 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/libs/utils';
 import { useNavLinkMenu } from '@/utils/constants/nav-link-menu';
+import FormStatusTrigger from './FormStatusTrigger';
 
 function ListMenu() {
     const { pathname } = useLocation();
@@ -31,6 +32,7 @@ function ListMenu() {
                     </Link>
                 );
             })}
+            <FormStatusTrigger />
         </div>
     );
 }
