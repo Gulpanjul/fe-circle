@@ -1,7 +1,7 @@
 import { useProfilePage } from '@/features/profile/hooks/useProfilePage';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import EditProfile from '../EditProfile/editProfile';
-import Banner from '@/assets/Banner.png';
+import Banner from '@/assets/banner.png';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/libs/utils';
 import ItemPost from '../ItemPost';
