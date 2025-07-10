@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { usePostDetail } from '../hooks';
 
-import TitlePage from './TitlePage';
+import TitlePage from '@/features/shared/components/TitlePage';
 import ItemPostDetail from './ItemPostDetail';
 import FormStatusArea from './FormStatusArea';
 import ItemPost from './ItemPost';
