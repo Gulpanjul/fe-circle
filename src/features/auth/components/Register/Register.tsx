@@ -1,4 +1,4 @@
-import brandLogo from '@/assets/Logo.svg';
+import brandLogo from '@/assets/logo.svg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Link } from 'react-router-dom';

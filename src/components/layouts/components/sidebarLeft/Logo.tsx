@@ -1,9 +1,9 @@
-import LogoImage from '@/assets/logo.svg';
+import brandLogo from '@/assets/logo.svg';
 
 function Logo() {
     return (
         <img
-            src={LogoImage}
+            src={brandLogo}
             alt="Circle Logo"
             className="px-4 mb-6 items-start"
         />
