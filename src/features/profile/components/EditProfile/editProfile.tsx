@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useEditProfile } from '../hooks/useEditProfile';
+import { useEditProfile } from '../../hooks/useEditProfile';
 import {
     Dialog,
     DialogClose,

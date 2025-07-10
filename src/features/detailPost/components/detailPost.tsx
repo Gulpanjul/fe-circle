@@ -3,10 +3,10 @@ import { useParams } from 'react-router-dom';
 
 import { usePostDetail } from '../hooks';
 
-import TitlePage from './titlePage';
-import ItemPostDetail from './itemPostDetail';
-import FormStatusArea from './formStatusArea';
-import ItemPost from './itemPost';
+import TitlePage from './TitlePage';
+import ItemPostDetail from './ItemPostDetail';
+import FormStatusArea from './FormStatusArea';
+import ItemPost from './ItemPost';
 
 export default function PostDetail() {
     const { threadId } = useParams();

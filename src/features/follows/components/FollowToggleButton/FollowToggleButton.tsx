@@ -6,7 +6,7 @@ interface FollowToggleButtonProps {
     isLoading?: boolean;
 }
 
-export function FollowToggleButton({
+function FollowToggleButton({
     isFollowed,
     onClick,
     isLoading,
@@ -24,3 +24,5 @@ export function FollowToggleButton({
         </Button>
     );
 }
+
+export default FollowToggleButton;

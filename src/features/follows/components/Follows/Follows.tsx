@@ -1,11 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/libs/utils';
-import { useFollowers } from '../hooks/useFollowers';
-import { useFollowings } from '../hooks/useFollowings';
-import { UserListItem } from './userListItem';
+import { useFollowers } from '../../hooks/useFollowers';
+import { useFollowings } from '../../hooks/useFollowings';
 import type { FollowEntity } from '@/entities/follow.entity';
 import { api } from '@/libs/api';
+import UserListItem from '../UserListItem';
 
 export default function Follows() {
     const { data: followerData, isLoading: loadingFollowers } = useFollowers();

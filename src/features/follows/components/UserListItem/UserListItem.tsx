@@ -1,9 +1,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { FollowToggleButton } from './followToggleButton';
-import type { UserListItemProps } from '../types/userListItemProps';
-import { useToggleFollow } from '../hooks/useToggleFollow';
+import type { UserListItemProps } from '../../types/userListItemProps';
+import { useToggleFollow } from '../../hooks/useToggleFollow';
+import FollowToggleButton from '../FollowToggleButton';
 
-export const UserListItem = ({
+const UserListItem = ({
     id,
     fullName,
     username,
@@ -48,3 +48,5 @@ export const UserListItem = ({
         </li>
     );
 };
+
+export default UserListItem;

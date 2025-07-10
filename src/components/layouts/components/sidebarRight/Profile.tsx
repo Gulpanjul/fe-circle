@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import EditProfile from '@/features/profile/components/editProfile';
+import EditProfile from '@/features/profile/components/EditProfile/editProfile';
 import { useAuthStore } from '@/stores/auth';
 import Banner from '@/assets/banner.png';
 

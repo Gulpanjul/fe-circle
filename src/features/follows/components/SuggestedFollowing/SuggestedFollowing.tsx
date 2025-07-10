@@ -1,17 +1,14 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import type { SearchUser } from '@/features/search/types/searchUser';
-import { useToggleFollow } from '../hooks/useToggleFollow';
-import { FollowToggleButton } from './followToggleButton';
+import { useToggleFollow } from '../../hooks/useToggleFollow';
+import FollowToggleButton from '../FollowToggleButton';
 
 interface SuggestedFollowingProps {
     user: SearchUser;
     goToProfile: (username: string) => void;
 }
 
-export function SuggestedFollowing({
-    user,
-    goToProfile,
-}: SuggestedFollowingProps) {
+function SuggestedFollowing({ user, goToProfile }: SuggestedFollowingProps) {
     const { isFollowed, toggleFollow, isLoading } = useToggleFollow(
         user.isFollowed,
         user.id,
@@ -54,3 +51,5 @@ export function SuggestedFollowing({
         </div>
     );
 }
+
+export default SuggestedFollowing;

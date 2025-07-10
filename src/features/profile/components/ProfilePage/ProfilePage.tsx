@@ -1,12 +1,12 @@
 import { useProfilePage } from '@/features/profile/hooks/useProfilePage';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { FollowToggleButton } from '@/features/follows/components/followToggleButton';
-import EditProfile from '../editProfile';
+import EditProfile from '../EditProfile/editProfile';
 import Banner from '@/assets/Banner.png';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/libs/utils';
 import ItemPost from '../ItemPost';
 import { useToggleFollow } from '@/features/follows/hooks/useToggleFollow';
+import FollowToggleButton from '@/features/follows/components/FollowToggleButton';
 
 function ProfilePage() {
     const { user, userPosts, isUserLoading, isOwnProfile } = useProfilePage();

@@ -1,6 +1,6 @@
 import { type SearchUser } from '../../types/searchUser';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { FollowToggleButton } from '@/features/follows/components/followToggleButton';
+import FollowToggleButton from '@/features/follows/components/FollowToggleButton';
 import { useToggleFollow } from '@/features/follows/hooks/useToggleFollow';
 
 interface ItemPostProps extends React.HTMLAttributes<HTMLDivElement> {

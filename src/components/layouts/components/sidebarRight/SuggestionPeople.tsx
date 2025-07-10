@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { SuggestedFollowing } from '@/features/follows/components/suggestedFollowing';
+import SuggestedFollowing from '@/features/follows/components/SuggestedFollowing';
 import { useSuggestedUsers } from '@/features/follows/hooks/useSuggestedUsers';
 
 function SuggestionsPeople() {

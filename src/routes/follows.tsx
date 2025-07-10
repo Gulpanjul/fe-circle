@@ -1,4 +1,4 @@
-import Follows from '@/features/follows/components/follows';
+import Follows from '@/features/follows/components/Follows';
 
 export default function FollowsPage() {
     return (

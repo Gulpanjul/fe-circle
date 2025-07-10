@@ -1,10 +1,10 @@
-import FormStatusArea from './formStatusArea';
-import ItemPost from './itemPost';
+import FormStatusArea from './FormStatusArea';
+import ItemPost from './ItemPost';
 import { useQuery } from '@tanstack/react-query';
 import { Loader2 } from 'lucide-react';
 import { api } from '@/libs/api';
 import type { Thread } from '@/features/thread/types/thread';
-import TitlePage from './titlePage';
+import TitlePage from './TitlePage';
 
 function Base() {
     const { data, isLoading, isError, failureReason } = useQuery({
